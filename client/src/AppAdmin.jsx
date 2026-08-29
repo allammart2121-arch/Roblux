@@ -37,7 +37,7 @@ function AdminContent() {
         </div>
       )}
 
-      {/* Admin Dedicated Navbar - BloxShop */}
+      {/* Admin Dedicated Navbar - ROBLUX */}
       <header style={{
         background: 'rgba(7, 9, 19, 0.95)',
         borderBottom: '1px solid var(--border-glow)',
@@ -59,7 +59,7 @@ function AdminContent() {
             </div>
             <div>
               <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#FFF' }}>
-                PANEL DE ADMINISTRACIÓN | <span style={{ color: 'var(--primary)' }}>BLOXSHOP</span>
+                PANEL DE ADMINISTRACIÓN | <span style={{ color: 'var(--primary)' }}>ROBLUX</span>
               </div>
               <div style={{ fontSize: '0.7rem', color: '#C084FC', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                 Portal de Control de Operaciones 2026
@@ -115,7 +115,7 @@ function AdminContent() {
                 </div>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#FFF' }}>Acceso Administrativo</h2>
                 <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '0.3rem' }}>
-                  Ingresa tus credenciales oficiales de Administrador de BloxShop.
+                  Ingresa tus credenciales oficiales de Administrador de ROBLUX.
                 </p>
               </div>
 
@@ -185,7 +185,7 @@ function AdminContent() {
         color: 'var(--text-dim)'
       }}>
         <div className="container">
-          BloxShop Admin Portal © 2026 - Panel de Control Exclusivo para Administradores
+          ROBLUX Admin Portal © 2026 - Panel de Control Exclusivo para Administradores
         </div>
       </footer>
 

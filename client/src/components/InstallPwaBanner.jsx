@@ -87,7 +87,7 @@ export default function InstallPwaBanner() {
           </div>
           <div>
             <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#FFF' }}>
-              Descarga la App BloxShop
+              Descarga la App ROBLUX
             </div>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
               Acceso rápido desde la pantalla de tu teléfono

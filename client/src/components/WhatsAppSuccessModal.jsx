@@ -30,9 +30,9 @@ export default function WhatsAppSuccessModal({ orderData, onClose }) {
   const totalAmountBs = (totalAmountUsd * usdtRate).toFixed(2);
   const itemsText = orderData.items ? orderData.items.map(i => `${i.title} (x${i.quantity})`).join(', ') : 'Recarga de Saldo';
 
-  // Construct pre-filled WhatsApp Message (BloxShop)
+  // Construct pre-filled WhatsApp Message (ROBLUX)
   const waText = encodeURIComponent(
-    `¡Hola Administrador de BloxShop! 👋\n` +
+    `¡Hola Administrador de ROBLUX! 👋\n` +
     `Acabo de realizar la compra de mi orden *${orderId}*.\n\n` +
     `🎮 *Usuario Roblox de Entrega*: ${robloxUser}\n` +
     `📦 *Ítems Comprados*: ${itemsText}\n` +

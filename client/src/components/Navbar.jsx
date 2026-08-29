@@ -33,7 +33,7 @@ export default function Navbar({ activeCategory, onSelectCategory, onNavigate, c
     }}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         
-        {/* Brand Logo - BloxShop */}
+        {/* Brand Logo - ROBLUX */}
         <div 
           onClick={() => onNavigate('catalog')}
           style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer' }}
@@ -53,7 +53,7 @@ export default function Navbar({ activeCategory, onSelectCategory, onNavigate, c
           </div>
           <div>
             <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFF', display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
-              BLOX<span style={{ color: 'var(--primary)' }}>SHOP</span>
+              ROB<span style={{ color: 'var(--primary)' }}>LUX</span>
             </div>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
               Tienda Oficial de Roblox

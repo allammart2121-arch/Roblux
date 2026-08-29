@@ -83,7 +83,7 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
   
   const waDepositMsg = encodeURIComponent(
     `¡Hola Administrador! 👋\n` +
-    `Acabo de enviar una solicitud de recarga de saldo en BloxShop.\n\n` +
+    `Acabo de enviar una solicitud de recarga de saldo en ROBLUX.\n\n` +
     `👤 *Usuario*: ${user?.username}\n` +
     `💵 *Monto en Bolívares*: Bs. ${amountInLocalCurrency}\n` +
     `💳 *Canal*: PAGO MÓVIL\n` +

@@ -17,7 +17,7 @@ export default function Footer() {
           gap: '2rem',
           marginBottom: '2.5rem'
         }}>
-          {/* Brand Col - BloxShop */}
+          {/* Brand Col - ROBLUX */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem' }}>
               <div style={{
@@ -33,7 +33,7 @@ export default function Footer() {
                 <Gamepad2 size={20} strokeWidth={2.5} />
               </div>
               <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#FFF' }}>
-                BLOX<span style={{ color: 'var(--primary)' }}>SHOP</span>
+                ROB<span style={{ color: 'var(--primary)' }}>LUX</span>
               </span>
             </div>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
@@ -81,7 +81,7 @@ export default function Footer() {
           color: 'var(--text-dim)'
         }}>
           <div>
-            BloxShop © 2026 - Todos los derechos reservados.
+            ROBLUX © 2026 - Todos los derechos reservados.
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>

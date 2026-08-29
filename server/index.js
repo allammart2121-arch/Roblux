@@ -107,7 +107,7 @@ app.use(errorHandler);
 // Start Server
 app.listen(config.PORT, () => {
   console.log(`=================================================`);
-  console.log(`🚀 Servidor BloxShop corriendo en puerto: ${config.PORT}`);
+  console.log(`🚀 Servidor ROBLUX corriendo en puerto: ${config.PORT}`);
   console.log(`🛒 Portal de Clientes: http://localhost:${config.PORT}/`);
   console.log(`👑 Portal de Administrador: http://localhost:${config.PORT}/admin`);
   console.log(`=================================================`);
