@@ -1,0 +1,17 @@
+{
+  "short_name": "BloxShop",
+  "name": "BloxShop - Recargas Roblox",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512 192x192 144x144 96x96 72x72 48x48"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0B0E17",
+  "theme_color": "#0B0E17",
+  "display": "standalone",
+  "orientation": "portrait",
+  "description": "Plataforma oficial de recargas de Robux y armas virtuales de Roblox"
+}
