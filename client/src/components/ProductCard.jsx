@@ -36,22 +36,26 @@ export default function ProductCard({ product, usdtRate = 42.50 }) {
     >
       {/* Badge Ribbon */}
       {product.badge && (
-        <div className="product-card-badge" style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 10 }}>
-          <span className="badge badge-purple" style={{ boxShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
+        <div className="product-card-badge" style={{ position: 'absolute', top: '8px', left: '8px', zIndex: 10 }}>
+          <span className="badge badge-purple" style={{ boxShadow: '0 2px 10px rgba(0,0,0,0.5)', fontSize: '0.7rem' }}>
             {product.badge}
           </span>
         </div>
       )}
 
-      {/* Product Image Container */}
+      {/* Product Image Container - COMPLETE FULL IMAGE (CONTAIN) */}
       <div 
         className="product-card-img"
         style={{
           width: '100%',
-          height: '180px',
+          height: '150px',
           position: 'relative',
           overflow: 'hidden',
-          background: '#070913'
+          background: 'rgba(5, 7, 15, 0.8)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0.5rem'
         }}
       >
         <img
@@ -62,64 +66,46 @@ export default function ProductCard({ product, usdtRate = 42.50 }) {
             e.currentTarget.src = DEFAULT_FALLBACK_IMAGE;
           }}
           style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            transition: 'transform 0.5s ease'
+            maxWidth: '100%',
+            maxHeight: '100%',
+            objectFit: 'contain', // Entire full image visible!
+            transition: 'transform 0.3s ease',
+            borderRadius: '6px'
           }}
           className="product-image"
         />
-
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(to top, rgba(11, 14, 23, 0.95) 0%, transparent 60%)'
-        }} />
 
         <div 
           className="product-card-delivery"
           style={{
             position: 'absolute',
-            bottom: '8px',
-            left: '10px',
+            bottom: '6px',
+            left: '8px',
             display: 'flex',
             alignItems: 'center',
             gap: '0.3rem',
-            fontSize: '0.73rem',
-            color: 'var(--text-muted)'
+            fontSize: '0.7rem',
+            color: 'var(--text-muted)',
+            background: 'rgba(7, 9, 19, 0.75)',
+            padding: '0.15rem 0.4rem',
+            borderRadius: '10px'
           }}
         >
-          <Clock size={13} color="var(--primary)" />
-          <span>{product.deliveryTime || 'Instantánea (1-5 min)'}</span>
+          <Clock size={12} color="var(--primary)" />
+          <span>{product.deliveryTime || '1-5 min'}</span>
         </div>
       </div>
 
       {/* Product Content Body */}
-      <div className="product-card-body" style={{ padding: '1rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <div className="product-card-body" style={{ padding: '0.75rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
         
-        <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>
+        <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.15rem' }}>
           {product.category}
         </div>
 
-        <h3 className="product-card-title" style={{ fontSize: '1rem', fontWeight: 800, color: '#FFF', marginBottom: '0.4rem', lineHeight: 1.25 }}>
+        <h3 className="product-card-title" style={{ fontSize: '0.92rem', fontWeight: 800, color: '#FFF', marginBottom: '0.35rem', lineHeight: 1.25 }}>
           {product.title}
         </h3>
-
-        <p 
-          className="product-card-desc"
-          style={{
-            fontSize: '0.8rem',
-            color: 'var(--text-muted)',
-            marginBottom: '0.75rem',
-            flexGrow: 1,
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden'
-          }}
-        >
-          {product.description}
-        </p>
 
         {/* PRICE DISPLAY EXCLUSIVELY IN BS */}
         <div style={{
@@ -127,12 +113,12 @@ export default function ProductCard({ product, usdtRate = 42.50 }) {
           alignItems: 'center',
           justifyContent: 'space-between',
           marginTop: 'auto',
-          paddingTop: '0.5rem',
+          paddingTop: '0.4rem',
           borderTop: '1px solid rgba(255, 255, 255, 0.08)'
         }}>
           <div>
-            <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Precio</div>
-            <div className="product-card-price" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--accent-gold)' }}>
+            <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Precio</div>
+            <div className="product-card-price" style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--accent-gold)' }}>
               Bs. {priceInBs}
             </div>
           </div>
@@ -141,9 +127,9 @@ export default function ProductCard({ product, usdtRate = 42.50 }) {
             onClick={handleAddToCart}
             disabled={isOutOfStock}
             className={`btn btn-sm ${isOutOfStock ? 'btn-outline' : 'btn-primary'}`}
-            style={{ borderRadius: '20px', padding: '0.4rem 0.75rem' }}
+            style={{ borderRadius: '20px', padding: '0.35rem 0.65rem', fontSize: '0.75rem' }}
           >
-            <ShoppingCart size={15} />
+            <ShoppingCart size={14} />
             {isOutOfStock ? 'Agotado' : 'Añadir'}
           </button>
         </div>
