@@ -1,17 +1,18 @@
 {
-  "short_name": "ROBLUX",
-  "name": "ROBLUX - Recargas Roblox",
+  "short_name": "ROBUX SHOP",
+  "name": "ROBUX SHOP - Recargas Robux",
   "icons": [
     {
-      "src": "/favicon.svg",
-      "type": "image/svg+xml",
-      "sizes": "512x512 192x192 144x144 96x96 72x72 48x48"
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": "/",
-  "background_color": "#0B0E17",
-  "theme_color": "#0B0E17",
+  "background_color": "#0A121A",
+  "theme_color": "#0A121A",
   "display": "standalone",
   "orientation": "portrait",
-  "description": "Plataforma oficial de recargas de Robux para Roblox"
+  "description": "Tienda Oficial de Recargas de Robux - ROBUX SHOP"
 }

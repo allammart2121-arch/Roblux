@@ -1,8 +1,9 @@
-const CACHE_NAME = 'roblux-pwa-v3';
+const CACHE_NAME = 'robux-shop-pwa-v4';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/manifest.json'
+  '/manifest.json',
+  '/logo.png'
 ];
 
 self.addEventListener('install', (event) => {
