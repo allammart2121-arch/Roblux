@@ -9,13 +9,13 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
   const [amountBs, setAmountBs] = useState('');
 
   // Dynamic Site Settings from Admin
-  const [settings, setSettings] = useState({
-    usdtRate: 42.50,
-    pagoMovilBank: 'Banesco (0134)',
-    pagoMovilPhone: '0414-123-4567',
-    pagoMovilId: 'J-40129384-9',
-    supportPhone: '584141234567'
-  });
+  const [settings, setSettings] = useState(() => ({
+    usdtRate: parseFloat(localStorage.getItem('cached_usdt_rate') || '792'),
+    pagoMovilBank: 'MERCANTIL ( 0105)',
+    pagoMovilPhone: '04128952564',
+    pagoMovilId: '36145039',
+    supportPhone: '584128952564'
+  }));
 
   const [pagoMovilRef, setPagoMovilRef] = useState('');
   const [submittedTx, setSubmittedTx] = useState(null);
@@ -70,6 +70,9 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
         .then(res => {
           if (res.success && res.settings) {
             setSettings(prev => ({ ...prev, ...res.settings }));
+            if (res.settings.usdtRate) {
+              localStorage.setItem('cached_usdt_rate', String(res.settings.usdtRate));
+            }
           }
         })
         .catch(err => console.error('Error fetching live settings:', err));

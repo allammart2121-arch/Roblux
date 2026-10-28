@@ -7,13 +7,18 @@ import { apiService } from '../services/api';
 export default function Navbar({ activeCategory, onSelectCategory, onNavigate, currentPage }) {
   const { user, logout, setAuthModal, setWalletModalOpen } = useAuth();
   const { totalItems, setIsCartOpen } = useCart();
-  const [usdtRate, setUsdtRate] = useState(42.50);
+  const [usdtRate, setUsdtRate] = useState(() => {
+    const cached = localStorage.getItem('cached_usdt_rate');
+    return cached ? parseFloat(cached) : 792;
+  });
 
   useEffect(() => {
     apiService.getSettings()
       .then(res => {
         if (res.success && res.settings && res.settings.usdtRate) {
-          setUsdtRate(parseFloat(res.settings.usdtRate));
+          const r = parseFloat(res.settings.usdtRate);
+          setUsdtRate(r);
+          localStorage.setItem('cached_usdt_rate', String(r));
         }
       })
       .catch(err => console.error('Error fetching rate for navbar:', err));

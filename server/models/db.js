@@ -12,15 +12,15 @@ class LocalDB {
       orders: [],
       transactions: [],
       settings: {
-        usdtRate: 42.50,
-        pagoMovilBank: 'Banesco (0134)',
-        pagoMovilPhone: '0414-123-4567',
-        pagoMovilId: 'J-40129384-9',
+        usdtRate: 792.00,
+        pagoMovilBank: 'MERCANTIL ( 0105)',
+        pagoMovilPhone: '04128952564',
+        pagoMovilId: '36145039',
         usdtWalletAddress: 'TYu8x9KP2mN4vLqW1zRsA6bC8dE9fG0hJ',
         pagoMovilActive: true,
-        cardActive: true,
-        cryptoActive: true,
-        supportPhone: '+58 414 123 4567',
+        cardActive: false,
+        cryptoActive: false,
+        supportPhone: '+58 4128952564',
         bannerNotice: '¡Recargas de Robux activas las 24 horas! Tasa oficial del día.'
       }
     };

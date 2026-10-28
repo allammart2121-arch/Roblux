@@ -3,7 +3,10 @@ import { apiService } from '../services/api';
 import RobuxCalculator from '../components/RobuxCalculator';
 
 export default function CatalogPage() {
-  const [usdtRate, setUsdtRate] = useState(42.50);
+  const [usdtRate, setUsdtRate] = useState(() => {
+    const cached = localStorage.getItem('cached_usdt_rate');
+    return cached ? parseFloat(cached) : 792;
+  });
   const [bannerNotice, setBannerNotice] = useState('¡Recargas de Robux activas las 24 horas!');
 
   useEffect(() => {
@@ -11,7 +14,9 @@ export default function CatalogPage() {
       .then(settingsRes => {
         if (settingsRes.success && settingsRes.settings) {
           if (settingsRes.settings.usdtRate) {
-            setUsdtRate(parseFloat(settingsRes.settings.usdtRate));
+            const r = parseFloat(settingsRes.settings.usdtRate);
+            setUsdtRate(r);
+            localStorage.setItem('cached_usdt_rate', String(r));
           }
           if (settingsRes.settings.bannerNotice) {
             setBannerNotice(settingsRes.settings.bannerNotice);

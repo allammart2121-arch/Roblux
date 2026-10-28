@@ -10,7 +10,10 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState('orders'); // 'orders' | 'transactions'
   const [loading, setLoading] = useState(true);
   const [supportPhone, setSupportPhone] = useState('584141234567');
-  const [usdtRate, setUsdtRate] = useState(42.50);
+  const [usdtRate, setUsdtRate] = useState(() => {
+    const cached = localStorage.getItem('cached_usdt_rate');
+    return cached ? parseFloat(cached) : 792;
+  });
 
   useEffect(() => {
     fetchProfileData();
@@ -22,7 +25,9 @@ export default function ProfilePage() {
             if (cleaned) setSupportPhone(cleaned);
           }
           if (res.settings.usdtRate) {
-            setUsdtRate(parseFloat(res.settings.usdtRate));
+            const r = parseFloat(res.settings.usdtRate);
+            setUsdtRate(r);
+            localStorage.setItem('cached_usdt_rate', String(r));
           }
         }
       })

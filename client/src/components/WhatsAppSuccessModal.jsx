@@ -4,7 +4,10 @@ import { apiService } from '../services/api';
 
 export default function WhatsAppSuccessModal({ orderData, onClose }) {
   const [supportPhone, setSupportPhone] = useState('584141234567');
-  const [usdtRate, setUsdtRate] = useState(42.50);
+  const [usdtRate, setUsdtRate] = useState(() => {
+    const cached = localStorage.getItem('cached_usdt_rate');
+    return cached ? parseFloat(cached) : 792;
+  });
 
   useEffect(() => {
     apiService.getSettings()
@@ -15,7 +18,9 @@ export default function WhatsAppSuccessModal({ orderData, onClose }) {
             if (cleaned) setSupportPhone(cleaned);
           }
           if (res.settings.usdtRate) {
-            setUsdtRate(parseFloat(res.settings.usdtRate));
+            const r = parseFloat(res.settings.usdtRate);
+            setUsdtRate(r);
+            localStorage.setItem('cached_usdt_rate', String(r));
           }
         }
       })

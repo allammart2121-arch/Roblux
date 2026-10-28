@@ -20,21 +20,21 @@ export default function AdminDashboardPage() {
 
   // Settings State
   const [siteSettings, setSiteSettings] = useState({
-    usdtRate: '42.50',
-    pagoMovilBank: 'Banesco (0134)',
-    pagoMovilPhone: '0414-123-4567',
-    pagoMovilId: 'J-40129384-9',
+    usdtRate: localStorage.getItem('cached_usdt_rate') || '792.00',
+    pagoMovilBank: 'MERCANTIL ( 0105)',
+    pagoMovilPhone: '04128952564',
+    pagoMovilId: '36145039',
     usdtWalletAddress: 'TYu8x9KP2mN4vLqW1zRsA6bC8dE9fG0hJ',
     pagoMovilActive: true,
-    cardActive: true,
-    cryptoActive: true,
-    supportPhone: '+58 414 123 4567',
+    cardActive: false,
+    cryptoActive: false,
+    supportPhone: '+58 4128952564',
     bannerNotice: '¡Recargas de Robux activas las 24 horas! Tasa oficial del día.'
   });
   const [savingSettings, setSavingSettings] = useState(false);
 
   // Quick rate editor state (for summary tab widget)
-  const [quickRate, setQuickRate] = useState('');
+  const [quickRate, setQuickRate] = useState(localStorage.getItem('cached_usdt_rate') || '792.00');
   const [savingRate, setSavingRate] = useState(false);
 
   // Product Form Modal state
@@ -47,23 +47,27 @@ export default function AdminDashboardPage() {
   const [balanceMode, setBalanceMode] = useState('add'); // 'add' | 'subtract' | 'set'
 
   useEffect(() => {
-    fetchAdminData();
-    // Auto refresh every 15 seconds to check for new pending deposits
+    fetchAdminData(true);
+    // Auto refresh every 15 seconds to check ONLY for new pending deposits and orders (does not touch settings inputs)
     const interval = setInterval(() => {
-      fetchAdminData();
+      fetchAdminData(false);
     }, 15000);
     return () => clearInterval(interval);
-  }, [activeTab]);
+  }, []);
 
-  const fetchAdminData = async () => {
+  const fetchAdminData = async (isInitial = false) => {
     try {
       const statsRes = await apiService.getAdminStats();
       if (statsRes.success) setStats(statsRes.stats);
 
-      const settingsRes = await apiService.getAdminSettings();
-      if (settingsRes.success) {
-        setSiteSettings(prev => ({ ...prev, ...settingsRes.settings }));
-        setQuickRate(String(settingsRes.settings.usdtRate || '42.50'));
+      if (isInitial) {
+        const settingsRes = await apiService.getAdminSettings();
+        if (settingsRes.success && settingsRes.settings) {
+          setSiteSettings(settingsRes.settings);
+          const r = String(settingsRes.settings.usdtRate || '792.00');
+          setQuickRate(r);
+          localStorage.setItem('cached_usdt_rate', r);
+        }
       }
 
       const prodRes = await apiService.getProducts();
@@ -98,6 +102,7 @@ export default function AdminDashboardPage() {
         showToast(`✅ Tasa actualizada a ${rateVal} Bs/$ correctamente.`);
         setSiteSettings(res.settings);
         setQuickRate(String(rateVal));
+        localStorage.setItem('cached_usdt_rate', String(rateVal));
       }
     } catch (err) {
       showToast(err.message || 'Error al actualizar la tasa.', 'error');
@@ -115,6 +120,10 @@ export default function AdminDashboardPage() {
       if (res.success) {
         showToast(res.message || 'Configuración guardada exitosamente.');
         setSiteSettings(res.settings);
+        if (res.settings.usdtRate) {
+          setQuickRate(String(res.settings.usdtRate));
+          localStorage.setItem('cached_usdt_rate', String(res.settings.usdtRate));
+        }
       }
     } catch (err) {
       showToast(err.message || 'Error al guardar la configuración.', 'error');
@@ -390,9 +399,12 @@ export default function AdminDashboardPage() {
                   min="1"
                   className="input-field"
                   style={{ flex: 1, padding: '0.45rem 0.65rem', fontSize: '0.95rem', fontWeight: 700 }}
-                  placeholder="Ej: 42.50"
+                  placeholder="Ej: 792"
                   value={quickRate}
-                  onChange={(e) => setQuickRate(e.target.value)}
+                  onChange={(e) => {
+                    setQuickRate(e.target.value);
+                    setSiteSettings(prev => ({ ...prev, usdtRate: e.target.value }));
+                  }}
                   onKeyDown={(e) => { if (e.key === 'Enter') handleQuickSaveRate(); }}
                 />
                 <button
@@ -663,9 +675,12 @@ export default function AdminDashboardPage() {
                     type="number"
                     step="0.01"
                     className="input-field"
-                    placeholder="42.50"
+                    placeholder="792.00"
                     value={siteSettings.usdtRate}
-                    onChange={(e) => setSiteSettings({ ...siteSettings, usdtRate: e.target.value })}
+                    onChange={(e) => {
+                      setSiteSettings({ ...siteSettings, usdtRate: e.target.value });
+                      setQuickRate(e.target.value);
+                    }}
                     required
                   />
                 </div>

@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 
 const DEFAULT_FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1614680376593-902f749f7cfc?auto=format&fit=crop&w=600&q=80';
 
-export default function ProductCard({ product, usdtRate = 42.50 }) {
+export default function ProductCard({ product, usdtRate = 792 }) {
   const { addToCart } = useCart();
   const { showToast } = useAuth();
 
@@ -19,7 +19,7 @@ export default function ProductCard({ product, usdtRate = 42.50 }) {
   };
 
   const isOutOfStock = product.stock <= 0;
-  const rateNum = parseFloat(usdtRate) || 42.50;
+  const rateNum = parseFloat(usdtRate) || 792;
   const priceInBs = (product.price * rateNum).toFixed(2);
 
   return (
