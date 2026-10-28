@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Trash2, Plus, Minus, ShoppingBag, Wallet, Smartphone, ArrowRight } from 'lucide-react';
+import { X, Trash2, Plus, Minus, ShoppingBag, Wallet, ArrowRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { apiService } from '../services/api';
@@ -8,7 +8,7 @@ export default function CartDrawer({ onOrderCreated }) {
   const { cartItems, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, clearCart, totalAmount } = useCart();
   const { user, setAuthModal, setWalletModalOpen, refreshBalance, showToast } = useAuth();
 
-  const [paymentMethod, setPaymentMethod] = useState('wallet'); // 'wallet' | 'pago_movil'
+  const [paymentMethod] = useState('wallet'); // Solo saldo - pago móvil es para recargar saldo, no para pagar Robux
   const [robloxUsername, setRobloxUsername] = useState(user?.robloxUsername || '');
   const [loading, setLoading] = useState(false);
   const [usdtRate, setUsdtRate] = useState(42.50);
@@ -336,31 +336,24 @@ export default function CartDrawer({ onOrderCreated }) {
               />
             </div>
 
-            {/* Payment Method Selector */}
-            <div style={{ marginBottom: '1.25rem' }}>
-              <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
-                Método de Pago:
-              </label>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('wallet')}
-                  className={`btn btn-sm ${paymentMethod === 'wallet' ? 'btn-primary' : 'btn-outline'}`}
-                  style={{ justifyContent: 'flex-start', padding: '0.6rem 0.8rem' }}
-                >
-                  <Wallet size={16} /> Mi Saldo
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('pago_movil')}
-                  className={`btn btn-sm ${paymentMethod === 'pago_movil' ? 'btn-primary' : 'btn-outline'}`}
-                  style={{ justifyContent: 'flex-start', padding: '0.6rem 0.8rem' }}
-                >
-                  <Smartphone size={16} /> Pago Móvil
-                </button>
+            {/* Saldo disponible */}
+            <div style={{
+              marginBottom: '1rem',
+              background: 'rgba(56, 189, 248, 0.07)',
+              border: '1px solid rgba(56, 189, 248, 0.2)',
+              borderRadius: '10px',
+              padding: '0.65rem 0.9rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                <Wallet size={15} color="var(--primary)" />
+                Método de pago: <strong style={{ color: '#FFF' }}>Mi Saldo</strong>
               </div>
+              <span style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--primary)' }}>
+                Bs. {userBalanceBs} disponible
+              </span>
             </div>
 
             {/* Insufficient balance warning card EXCLUSIVELY IN BS */}
