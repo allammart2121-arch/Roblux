@@ -33,11 +33,11 @@ export default function WhatsAppSuccessModal({ orderData, onClose }) {
   // Construct pre-filled WhatsApp Message (ROBLUX)
   const waText = encodeURIComponent(
     `¡Hola Administrador de ROBLUX! 👋\n` +
-    `Acabo de realizar la compra de mi orden *${orderId}*.\n\n` +
-    `🎮 *Usuario Roblox de Entrega*: ${robloxUser}\n` +
-    `📦 *Ítems Comprados*: ${itemsText}\n` +
+    `Acabo de realizar la recarga de mi orden *${orderId}*.\n\n` +
+    `🎮 *Usuario Roblox*: ${robloxUser}\n` +
+    `⚡ *Paquete de Robux*: ${itemsText}\n` +
     `💵 *Monto Total*: Bs. ${totalAmountBs}\n\n` +
-    `Quedo atento en esta línea de WhatsApp para recibir mis Robux / Ítems en Roblox. ¡Gracias!`
+    `Quedo atento en esta línea de WhatsApp para recibir mis Robux en mi cuenta de Roblox. ¡Muchas gracias!`
   );
 
   const whatsappUrl = `https://wa.me/${supportPhone}?text=${waText}`;
@@ -127,7 +127,7 @@ export default function WhatsAppSuccessModal({ orderData, onClose }) {
           }}
         >
           <MessageSquare size={22} />
-          Contactar Administrador por WhatsApp para Entregar Compra
+          Contactar Administrador por WhatsApp para Recibir mis Robux
         </a>
 
         <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginTop: '0.85rem' }}>

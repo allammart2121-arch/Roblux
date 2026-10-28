@@ -3,7 +3,20 @@ const { v4: uuidv4 } = require('uuid');
 const db = require('../models/db');
 
 const defaultProducts = [
-  // CATEGORIA: ROBUX
+  {
+    id: 'robux-400',
+    title: 'Paquete 400 Robux',
+    category: 'Robux',
+    subcategory: 'Recarga Directa',
+    price: 4.99,
+    stock: 500,
+    badge: 'Inicio Gamer',
+    rating: 4.8,
+    imageUrl: 'https://images.unsplash.com/photo-1614680376593-902f749f7cfc?auto=format&fit=crop&w=600&q=80',
+    description: 'Acreditación directa e instantánea de 400 Robux a tu cuenta de Roblox mediante proceso 100% seguro.',
+    deliveryTime: 'Instantánea (1-5 min)',
+    popular: false
+  },
   {
     id: 'robux-800',
     title: 'Paquete 800 Robux',
@@ -13,8 +26,22 @@ const defaultProducts = [
     stock: 500,
     badge: 'Popular',
     rating: 4.9,
-    imageUrl: 'https://images.unsplash.com/photo-1614680376593-902f749f7cfc?auto=format&fit=crop&w=600&q=80',
-    description: 'Acreditación directa e instantánea de 800 Robux a tu cuenta de Roblox mediante regalo seguro.',
+    imageUrl: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=600&q=80',
+    description: 'Acreditación directa e instantánea de 800 Robux a tu cuenta de Roblox sin contraseñas.',
+    deliveryTime: 'Instantánea (1-5 min)',
+    popular: true
+  },
+  {
+    id: 'robux-1700',
+    title: 'Paquete 1,700 Robux',
+    category: 'Robux',
+    subcategory: 'Recarga Directa',
+    price: 19.99,
+    stock: 350,
+    badge: 'Recomendado',
+    rating: 5.0,
+    imageUrl: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80',
+    description: '1,700 Robux para comprar Gamepasses, avatares limitados y skins exclusivas en Roblox.',
     deliveryTime: 'Instantánea (1-5 min)',
     popular: true
   },
@@ -22,7 +49,7 @@ const defaultProducts = [
     id: 'robux-2000',
     title: 'Paquete 2,000 Robux + 200 Bonus',
     category: 'Robux',
-    subcategory: 'Recarga Bonus',
+    subcategory: 'Bonus Pack',
     price: 22.50,
     stock: 350,
     badge: 'Mejor Valor',
@@ -56,88 +83,31 @@ const defaultProducts = [
     badge: 'VIP Ultimate',
     rating: 5.0,
     imageUrl: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80',
-    description: '10,000 Robux acreditados a tu cuenta con soporte prioritario 24/7.',
+    description: '10,000 Robux acreditados a tu cuenta con soporte prioritario 24/7 y garantía total.',
     deliveryTime: 'Garantizada (1 min)',
     popular: true
   },
-
-  // CATEGORIA: ARMAS VIRTUALES
   {
-    id: 'mm2-harvester',
-    title: 'Harvester (Guadaña Cosechadora MM2)',
-    category: 'Armas Virtuales',
-    subcategory: 'Murder Mystery 2',
-    price: 18.99,
-    stock: 15,
-    badge: 'Godly Legendario',
-    rating: 5.0,
-    imageUrl: 'https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=600&q=80',
-    description: 'Una de las armas más raras y cotizadas de Murder Mystery 2. Tradeo instantáneo en servidor seguro.',
-    deliveryTime: 'Entrega por Tradeo (2-10 min)',
-    popular: true
-  },
-  {
-    id: 'mm2-icebreaker-set',
-    title: 'Set Icebreaker & Icewing MM2',
-    category: 'Armas Virtuales',
-    subcategory: 'Murder Mystery 2',
-    price: 14.50,
-    stock: 25,
-    badge: 'Set Exclusivo',
-    rating: 4.8,
-    imageUrl: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80',
-    description: 'Combo doble de arma principal de hielo e Icewing. Apariencia mística con efectos de congelación.',
-    deliveryTime: 'Entrega por Tradeo (2-10 min)',
-    popular: false
-  },
-  {
-    id: 'mm2-chroma-elderwood',
-    title: 'Chroma Elderwood Scythe MM2',
-    category: 'Armas Virtuales',
-    subcategory: 'Murder Mystery 2',
-    price: 24.99,
-    stock: 8,
-    badge: 'Edición Chroma',
+    id: 'robux-20000',
+    title: 'Titan Pack 20,000 Robux VIP',
+    category: 'Robux',
+    subcategory: 'Ultra Pack',
+    price: 189.99,
+    stock: 50,
+    badge: 'Leyenda',
     rating: 5.0,
     imageUrl: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80',
-    description: 'Guadaña de madera ancestral con aura RGB Chroma cambiante. Altísimo valor de colección.',
-    deliveryTime: 'Entrega por Tradeo (2-10 min)',
-    popular: true
-  },
-  {
-    id: 'bladeball-infinity-sword',
-    title: 'Espada Infinita Neon (Blade Ball)',
-    category: 'Armas Virtuales',
-    subcategory: 'Blade Ball',
-    price: 12.99,
-    stock: 30,
-    badge: 'Skin Mítica',
-    rating: 4.7,
-    imageUrl: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80',
-    description: 'Espada luminosa neón con finisher exclusivo para batallas en Blade Ball.',
-    deliveryTime: 'Entrega por Tradeo (5 min)',
+    description: 'El paquete definitivo de 20,000 Robux para los jugadores más exigentes. Máxima prioridad.',
+    deliveryTime: 'Garantizada (1 min)',
     popular: false
-  },
-  {
-    id: 'bloxfruits-kitsune',
-    title: 'Fruta Kitsune Permanente (Blox Fruits)',
-    category: 'Combos & pases',
-    subcategory: 'Blox Fruits',
-    price: 29.99,
-    stock: 20,
-    badge: 'Fruta Mítica',
-    rating: 5.0,
-    imageUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80',
-    description: 'Pase de Fruta Kitsune permanente para Blox Fruits. Habilidades supremas de zorro celestial.',
-    deliveryTime: 'GIFT Directo (Instantáneo)',
-    popular: true
   }
 ];
 
 async function seedDatabase() {
   const currentProducts = db.getProducts();
-  if (!currentProducts || currentProducts.length === 0) {
-    console.log('Seeding initial product catalog into database...');
+  const hasOnlyRobux = currentProducts && currentProducts.length > 0 && currentProducts.every(p => p.category === 'Robux');
+  if (!currentProducts || currentProducts.length === 0 || !hasOnlyRobux) {
+    console.log('Seeding initial product catalog into database with Robux only...');
     db.saveProducts(defaultProducts);
   }
 

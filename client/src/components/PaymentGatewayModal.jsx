@@ -85,7 +85,7 @@ export default function PaymentGatewayModal({ paymentData, onClose, onPaymentApp
     `Acabo de realizar una recarga de saldo/compra aprobada.\n` +
     `📌 *Referencia*: ${transaction?.referenceCode || 'REF'}\n` +
     `💵 *Monto*: $${paymentData.amount.toFixed(2)} USD\n` +
-    `Quedo atento para coordinar la entrega en Roblox.`
+    `Quedo atento para coordinar la recarga de Robux en mi cuenta de Roblox.`
   );
   const whatsappUrl = `https://wa.me/${supportPhone}?text=${waText}`;
 

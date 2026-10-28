@@ -210,7 +210,7 @@ export default function CartDrawer({ onOrderCreated }) {
             {/* Target Roblox User Input */}
             <div style={{ marginBottom: '1rem' }}>
               <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>
-                Usuario de Roblox para la Entrega:
+                Usuario de Roblox para la Recarga:
               </label>
               <input
                 type="text"

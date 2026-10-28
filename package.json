@@ -1,7 +1,7 @@
 {
   "name": "roblux-ecommerce",
   "version": "1.0.0",
-  "description": "Plataforma e-Commerce ROBLUX para recargas de Robux y armas/ítems virtuales de Roblox",
+  "description": "Plataforma e-Commerce ROBLUX para recargas de Robux en Roblox",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",

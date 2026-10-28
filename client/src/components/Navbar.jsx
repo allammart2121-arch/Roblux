@@ -61,22 +61,19 @@ export default function Navbar({ activeCategory, onSelectCategory, onNavigate, c
           </div>
         </div>
 
-        {/* Category Navigation Links */}
+        {/* Category Navigation Links - Robux Only */}
         <nav style={{ display: 'flex', gap: '0.5rem' }}>
-          {['Todos', 'Robux', 'Armas Virtuales', 'Combos'].map(cat => (
-            <button
-              key={cat}
-              onClick={() => {
-                onNavigate('catalog');
-                onSelectCategory(cat);
-              }}
-              className={`btn btn-sm ${activeCategory === cat && currentPage === 'catalog' ? 'btn-primary' : 'btn-outline'}`}
-              style={{ borderRadius: '20px' }}
-            >
-              {cat === 'Robux' && <Zap size={14} />}
-              {cat}
-            </button>
-          ))}
+          <button
+            onClick={() => {
+              onNavigate('catalog');
+              onSelectCategory('Robux');
+            }}
+            className={`btn btn-sm ${currentPage === 'catalog' ? 'btn-primary' : 'btn-outline'}`}
+            style={{ borderRadius: '20px' }}
+          >
+            <Zap size={14} />
+            Recargas Robux
+          </button>
         </nav>
 
         {/* User Profile & Balance & Cart Controls */}

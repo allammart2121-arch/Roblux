@@ -6,7 +6,11 @@ exports.getProducts = async (req, res, next) => {
     let products = db.getProducts();
 
     if (category && category !== 'Todos') {
-      products = products.filter(p => p.category.toLowerCase() === category.toLowerCase());
+      const catLower = category.toLowerCase();
+      products = products.filter(p => 
+        p.category.toLowerCase() === catLower || 
+        (p.subcategory && p.subcategory.toLowerCase() === catLower)
+      );
     }
 
     if (search) {

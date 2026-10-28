@@ -8,7 +8,7 @@ export default function CatalogPage({ activeCategory, onSelectCategory }) {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [usdtRate, setUsdtRate] = useState(42.50);
-  const [bannerNotice, setBannerNotice] = useState('¡Recargas de Robux y Tradeos MM2 activos las 24 horas!');
+  const [bannerNotice, setBannerNotice] = useState('¡Recargas de Robux activas las 24 horas!');
 
   useEffect(() => {
     fetchCatalogAndSettings();
@@ -42,7 +42,11 @@ export default function CatalogPage({ activeCategory, onSelectCategory }) {
   };
 
   const filteredProducts = products.filter(p => {
-    const matchesCategory = activeCategory === 'Todos' || p.category.toLowerCase() === activeCategory.toLowerCase();
+    const matchesCategory = 
+      activeCategory === 'Todos' ||
+      activeCategory === 'Robux' ||
+      p.category.toLowerCase() === activeCategory.toLowerCase() ||
+      (p.subcategory && p.subcategory.toLowerCase() === activeCategory.toLowerCase());
     const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           p.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
@@ -67,8 +71,8 @@ export default function CatalogPage({ activeCategory, onSelectCategory }) {
             color: '#FFF',
             marginBottom: '1rem'
           }}>
-            Recarga <span style={{ color: 'var(--primary)' }}>Robux</span> & Consigue <br />
-            <span style={{ color: '#C084FC' }}>Armas Legendarias en Roblox</span>
+            Recarga <span style={{ color: 'var(--primary)' }}>Robux</span> Oficiales <br />
+            <span style={{ color: '#C084FC' }}>Acreditación Directa e Instantánea</span>
           </h1>
 
           <p style={{
@@ -95,7 +99,7 @@ export default function CatalogPage({ activeCategory, onSelectCategory }) {
             <input
               type="text"
               className="input-field"
-              placeholder="Buscar por nombre (ej: Icewing, 800 Robux, Harvester)..."
+              placeholder="Buscar paquete de Robux (ej: 800 Robux, 2000 Robux, Bonus)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
@@ -124,20 +128,21 @@ export default function CatalogPage({ activeCategory, onSelectCategory }) {
           gap: '1rem'
         }}>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            {['Todos', 'Robux', 'Armas Virtuales', 'Combos'].map(cat => (
+            {['Robux', 'Recarga Directa', 'Bonus Pack', 'Ultra Pack'].map(cat => (
               <button
                 key={cat}
                 onClick={() => onSelectCategory(cat)}
                 className={`btn ${activeCategory === cat ? 'btn-primary' : 'btn-outline'}`}
                 style={{ borderRadius: '20px', padding: '0.55rem 1.25rem' }}
               >
+                {cat === 'Robux' && <Zap size={14} style={{ marginRight: '0.35rem' }} />}
                 {cat}
               </button>
             ))}
           </div>
 
           <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-            Mostrando <strong>{filteredProducts.length}</strong> productos disponibles
+            Mostrando <strong>{filteredProducts.length}</strong> paquetes de Robux disponibles
           </div>
         </div>
 

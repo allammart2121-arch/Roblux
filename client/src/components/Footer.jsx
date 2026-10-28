@@ -37,7 +37,7 @@ export default function Footer() {
               </span>
             </div>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-              La plataforma oficial más rápida y segura para la recarga de Robux e ítems legendarios de Roblox con pagos en Bolívares.
+              La plataforma oficial más rápida y segura para la recarga directa de Robux en Roblox con pagos en Bolívares.
             </p>
           </div>
 
@@ -45,8 +45,8 @@ export default function Footer() {
           <div style={{ display: 'flex', gap: '0.75rem' }}>
             <Zap color="var(--primary)" size={24} style={{ flexShrink: 0 }} />
             <div>
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#FFF', marginBottom: '0.2rem' }}>Entrega Inmediata</h4>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Entrega en 1-5 minutos mediante tradeo directo.</p>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#FFF', marginBottom: '0.2rem' }}>Recarga Inmediata</h4>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Acreditación en 1-5 minutos directa a tu cuenta.</p>
             </div>
           </div>
 
@@ -64,7 +64,7 @@ export default function Footer() {
             <Headphones color="#C084FC" size={24} style={{ flexShrink: 0 }} />
             <div>
               <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#FFF', marginBottom: '0.2rem' }}>Atención por WhatsApp</h4>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Atención directa al cliente para concretar la entrega.</p>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Atención directa al cliente para concretar tu recarga.</p>
             </div>
           </div>
         </div>

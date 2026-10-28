@@ -16,7 +16,7 @@ import { CheckCircle2, AlertCircle } from 'lucide-react';
 function ClientContent() {
   const { toast } = useAuth();
   const [currentPage, setCurrentPage] = useState('catalog'); // 'catalog' | 'profile'
-  const [activeCategory, setActiveCategory] = useState('Todos');
+  const [activeCategory, setActiveCategory] = useState('Robux');
   const [activePaymentProcess, setActivePaymentProcess] = useState(null);
   const [completedOrderForWhatsApp, setCompletedOrderForWhatsApp] = useState(null);
 

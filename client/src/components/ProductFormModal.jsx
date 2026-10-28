@@ -6,29 +6,19 @@ import { useAuth } from '../context/AuthContext';
 // Preset Roblox Image Gallery for 1-click selection
 const PRESET_GALLERY = [
   {
-    name: 'Guadaña Harvester / Hielo',
-    category: 'Armas Virtuales',
-    url: 'https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=600&q=80'
-  },
-  {
-    name: 'Cuchillo Icewing MM2',
-    category: 'Armas Virtuales',
-    url: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80'
-  },
-  {
-    name: 'Chroma Elderwood RGB',
-    category: 'Armas Virtuales',
-    url: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'
-  },
-  {
-    name: 'Espada Neón Blade Ball',
-    category: 'Armas Virtuales',
-    url: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'
-  },
-  {
-    name: 'Moneda / Robux Monedas',
+    name: 'Monedas Robux Gold',
     category: 'Robux',
     url: 'https://images.unsplash.com/photo-1614680376593-902f749f7cfc?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    name: 'Pack Robux Esmeralda',
+    category: 'Robux',
+    url: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    name: 'Robux Diamond Boost',
+    category: 'Robux',
+    url: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80'
   },
   {
     name: 'Bonus Robux Tarjeta',
@@ -36,14 +26,19 @@ const PRESET_GALLERY = [
     url: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80'
   },
   {
+    name: 'Mega Pack Robux',
+    category: 'Robux',
+    url: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80'
+  },
+  {
     name: 'Super Pack 10k Robux',
     category: 'Robux',
     url: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'
   },
   {
-    name: 'Fruta Kitsune Blox Fruits',
-    category: 'Combos & pases',
-    url: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80'
+    name: 'Titan Pack 20k VIP',
+    category: 'Robux',
+    url: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'
   }
 ];
 
@@ -51,14 +46,14 @@ export default function ProductFormModal({ product, isOpen, onClose, onSaved }) 
   const { showToast } = useAuth();
 
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('Armas Virtuales');
-  const [subcategory, setSubcategory] = useState('Murder Mystery 2');
+  const [category, setCategory] = useState('Robux');
+  const [subcategory, setSubcategory] = useState('Recarga Directa');
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState('');
-  const [badge, setBadge] = useState('Godly');
+  const [badge, setBadge] = useState('Popular');
   const [imageUrl, setImageUrl] = useState('');
   const [description, setDescription] = useState('');
-  const [deliveryTime, setDeliveryTime] = useState('Entrega por Tradeo (2-5 min)');
+  const [deliveryTime, setDeliveryTime] = useState('Instantánea (1-5 min)');
   const [imageSourceMode, setImageSourceMode] = useState('upload'); // 'upload' | 'presets' | 'url'
   const [loading, setLoading] = useState(false);
   const [previewError, setPreviewError] = useState(false);
@@ -66,24 +61,24 @@ export default function ProductFormModal({ product, isOpen, onClose, onSaved }) 
   useEffect(() => {
     if (product) {
       setTitle(product.title || '');
-      setCategory(product.category || 'Armas Virtuales');
+      setCategory(product.category || 'Robux');
       setSubcategory(product.subcategory || '');
       setPrice(product.price !== undefined ? product.price : '');
       setStock(product.stock !== undefined ? product.stock : '');
       setBadge(product.badge || '');
       setImageUrl(product.imageUrl || '');
       setDescription(product.description || '');
-      setDeliveryTime(product.deliveryTime || 'Entrega por Tradeo (2-5 min)');
+      setDeliveryTime(product.deliveryTime || 'Instantánea (1-5 min)');
     } else {
       setTitle('');
-      setCategory('Armas Virtuales');
-      setSubcategory('Murder Mystery 2');
-      setPrice('14.99');
-      setStock('50');
-      setBadge('Godly');
-      setImageUrl(PRESET_GALLERY[1].url);
-      setDescription('');
-      setDeliveryTime('Entrega por Tradeo (2-5 min)');
+      setCategory('Robux');
+      setSubcategory('Recarga Directa');
+      setPrice('9.99');
+      setStock('500');
+      setBadge('Popular');
+      setImageUrl(PRESET_GALLERY[0].url);
+      setDescription('Acreditación directa e instantánea de Robux a tu cuenta de Roblox mediante proceso 100% seguro.');
+      setDeliveryTime('Instantánea (1-5 min)');
     }
     setPreviewError(false);
   }, [product, isOpen]);
@@ -415,20 +410,18 @@ export default function ProductFormModal({ product, isOpen, onClose, onSaved }) 
                 onChange={(e) => setCategory(e.target.value)}
                 style={{ background: '#0F1424' }}
               >
-                <option value="Armas Virtuales">Armas Virtuales</option>
                 <option value="Robux">Robux</option>
-                <option value="Combos & pases">Combos & pases</option>
               </select>
             </div>
 
             <div>
               <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>
-                Subcategoría / Juego:
+                Subcategoría / Tipo de Pack:
               </label>
               <input
                 type="text"
                 className="input-field"
-                placeholder="Ej: Murder Mystery 2, Blox Fruits"
+                placeholder="Ej: Recarga Directa, Bonus Pack, Ultra Pack"
                 value={subcategory}
                 onChange={(e) => setSubcategory(e.target.value)}
               />
@@ -444,7 +437,7 @@ export default function ProductFormModal({ product, isOpen, onClose, onSaved }) 
                 type="number"
                 step="0.01"
                 className="input-field"
-                placeholder="14.99"
+                placeholder="9.99"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 required
@@ -458,7 +451,7 @@ export default function ProductFormModal({ product, isOpen, onClose, onSaved }) 
               <input
                 type="number"
                 className="input-field"
-                placeholder="50"
+                placeholder="500"
                 value={stock}
                 onChange={(e) => setStock(e.target.value)}
                 required
@@ -469,12 +462,12 @@ export default function ProductFormModal({ product, isOpen, onClose, onSaved }) 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
             <div>
               <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>
-                Badge / Rarity (Tipo de Arma):
+                Badge / Etiqueta del Paquete:
               </label>
 
-              {/* Selector Rápido: Ancient, Chroma, Godly */}
+              {/* Selector Rápido: Popular, Mejor Valor, Recomendado */}
               <div style={{ display: 'flex', gap: '0.35rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
-                {['Ancient', 'Chroma', 'Godly', 'Popular', 'Nuevo'].map(rarity => (
+                {['Popular', 'Mejor Valor', 'Recomendado', 'Inicio Gamer', 'Pro Gamer', 'VIP Ultimate'].map(rarity => (
                   <button
                     key={rarity}
                     type="button"
@@ -490,7 +483,7 @@ export default function ProductFormModal({ product, isOpen, onClose, onSaved }) 
               <input
                 type="text"
                 className="input-field"
-                placeholder="Selecciona arriba o escribe (ej: Ancient, Chroma, Godly)..."
+                placeholder="Selecciona arriba o escribe (ej: Popular, Mejor Valor)..."
                 value={badge}
                 onChange={(e) => setBadge(e.target.value)}
               />
@@ -498,12 +491,12 @@ export default function ProductFormModal({ product, isOpen, onClose, onSaved }) 
 
             <div>
               <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>
-                Tiempo Estimado de Entrega:
+                Tiempo Estimado de Acreditación:
               </label>
               <input
                 type="text"
                 className="input-field"
-                placeholder="Entrega por Tradeo (2-5 min)"
+                placeholder="Instantánea (1-5 min)"
                 value={deliveryTime}
                 onChange={(e) => setDeliveryTime(e.target.value)}
               />
@@ -517,7 +510,7 @@ export default function ProductFormModal({ product, isOpen, onClose, onSaved }) 
             <textarea
               className="input-field"
               rows={2}
-              placeholder="Descripción de la guadaña o arma virtual..."
+              placeholder="Descripción del paquete de Robux acreditado..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />

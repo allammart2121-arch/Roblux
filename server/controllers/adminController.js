@@ -137,7 +137,7 @@ exports.createProduct = async (req, res, next) => {
       badge: badge ? badge.trim() : 'Nuevo',
       rating: 5.0,
       imageUrl: imageUrl && imageUrl.trim() ? imageUrl.trim() : 'https://images.unsplash.com/photo-1614680376593-902f749f7cfc?auto=format&fit=crop&w=600&q=80',
-      description: description ? description.trim() : 'Producto oficial entregado mediante tradeo.',
+      description: description ? description.trim() : 'Recarga oficial de Robux acreditada directamente a tu cuenta de Roblox.',
       deliveryTime: deliveryTime ? deliveryTime.trim() : 'Instantánea (1-5 min)',
       popular: true
     };

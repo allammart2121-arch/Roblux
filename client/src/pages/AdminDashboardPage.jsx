@@ -29,7 +29,7 @@ export default function AdminDashboardPage() {
     cardActive: true,
     cryptoActive: true,
     supportPhone: '+58 414 123 4567',
-    bannerNotice: '¡Recargas de Robux y Tradeos MM2 activos las 24 horas! Tasa oficial del día.'
+    bannerNotice: '¡Recargas de Robux activas las 24 horas! Tasa oficial del día.'
   });
   const [savingSettings, setSavingSettings] = useState(false);
 

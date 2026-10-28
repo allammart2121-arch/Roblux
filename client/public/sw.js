@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bloxshop-pwa-v1';
+const CACHE_NAME = 'roblux-pwa-v2';
 const urlsToCache = [
   '/',
   '/index.html',
