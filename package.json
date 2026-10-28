@@ -1,7 +1,7 @@
 {
-  "name": "roblux-ecommerce",
+  "name": "robux-shop",
   "version": "1.0.0",
-  "description": "Plataforma e-Commerce ROBLUX para recargas de Robux en Roblox",
+  "description": "Plataforma e-Commerce ROBUX SHOP para recargas de Robux en Roblox",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
@@ -11,7 +11,7 @@
     "build": "npm --prefix client install && npm --prefix client run build"
   },
   "keywords": [
-    "roblux",
+    "robux-shop",
     "roblox",
     "robux",
     "ecommerce",
@@ -20,7 +20,7 @@
     "express",
     "react"
   ],
-  "author": "ROBLUX Developer",
+  "author": "ROBUX SHOP Developer",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
