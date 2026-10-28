@@ -58,7 +58,7 @@ export default function InstallPwaBanner() {
 
   return (
     <div style={{
-      background: 'linear-gradient(135deg, rgba(0, 242, 254, 0.15) 0%, rgba(138, 43, 226, 0.2) 100%)',
+      background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(80, 118, 141, 0.25) 100%)',
       borderBottom: '1px solid var(--border-glow)',
       padding: '0.65rem 1rem',
       position: 'relative',
@@ -72,22 +72,22 @@ export default function InstallPwaBanner() {
         gap: '0.5rem'
       }}>
         
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <div style={{
-            width: '34px',
-            height: '34px',
-            borderRadius: '8px',
-            background: 'var(--primary-gradient)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#000'
-          }}>
-            <Smartphone size={18} />
-          </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <img 
+            src="/logo.png" 
+            alt="ROBUX SHOP" 
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '50%',
+              objectFit: 'contain',
+              boxShadow: '0 0 10px rgba(56, 189, 248, 0.35)',
+              border: '1px solid rgba(122, 159, 183, 0.4)'
+            }}
+          />
           <div>
             <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#FFF' }}>
-              Descarga la App ROBLUX
+              Descarga la App ROBUX SHOP
             </div>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
               Acceso rápido desde la pantalla de tu teléfono

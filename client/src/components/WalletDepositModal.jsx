@@ -124,8 +124,8 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
   const refCode = submittedTx?.referenceCode || pagoMovilRef || 'REF';
   
   const waDepositMsg = encodeURIComponent(
-    `¡Hola Administrador! 👋\n` +
-    `Acabo de enviar una solicitud de recarga de saldo en ROBLUX.\n\n` +
+    `¡Hola Administrador de ROBUX SHOP! 👋\n` +
+    `Acabo de enviar una solicitud de recarga de saldo en ROBUX SHOP.\n\n` +
     `👤 *Usuario*: ${user?.username}\n` +
     `💵 *Monto en Bolívares*: Bs. ${amountInLocalCurrency}\n` +
     `💳 *Canal*: PAGO MÓVIL\n` +
@@ -140,7 +140,7 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
         maxWidth: '540px',
         padding: '2rem',
         position: 'relative',
-        boxShadow: 'var(--shadow-purple-glow)'
+        boxShadow: 'var(--shadow-steel-glow)'
       }}>
         {/* Close Button */}
         <button
@@ -153,18 +153,18 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
 
         {/* Modal Header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
-          <div style={{
-            width: '42px',
-            height: '42px',
-            borderRadius: '12px',
-            background: 'var(--secondary-gradient)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#FFF'
-          }}>
-            <Wallet size={22} />
-          </div>
+          <img 
+            src="/logo.png" 
+            alt="ROBUX SHOP" 
+            style={{
+              width: '42px',
+              height: '42px',
+              borderRadius: '50%',
+              objectFit: 'contain',
+              boxShadow: '0 0 12px rgba(56, 189, 248, 0.35)',
+              border: '1px solid rgba(80, 118, 141, 0.4)'
+            }}
+          />
           <div>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFF' }}>Recargar Mi Saldo</h2>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>

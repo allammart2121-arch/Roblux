@@ -27,12 +27,38 @@ export default function CatalogPage() {
       {/* HERO BANNER SECTION */}
       <section style={{
         position: 'relative',
-        background: 'linear-gradient(180deg, rgba(138, 43, 226, 0.15) 0%, rgba(7, 9, 19, 0) 100%)',
+        background: 'linear-gradient(180deg, rgba(80, 118, 141, 0.2) 0%, rgba(10, 18, 26, 0) 100%)',
         padding: '3rem 0 2rem 0',
         borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
       }}>
         <div className="container" style={{ textAlign: 'center', position: 'relative', zIndex: 2 }}>
           
+          {/* Brand Icon Emblem */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.25rem' }}>
+            <div style={{
+              width: '96px',
+              height: '96px',
+              borderRadius: '50%',
+              padding: '4px',
+              background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.5) 0%, rgba(80, 118, 141, 0.3) 100%)',
+              boxShadow: '0 0 30px rgba(56, 189, 248, 0.35)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <img 
+                src="/logo.png" 
+                alt="ROBUX SHOP" 
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '50%',
+                  objectFit: 'contain'
+                }}
+              />
+            </div>
+          </div>
+
           <h1 style={{
             fontSize: 'clamp(2rem, 5vw, 3.2rem)',
             fontWeight: 900,
@@ -41,7 +67,7 @@ export default function CatalogPage() {
             marginBottom: '1rem'
           }}>
             Recarga <span style={{ color: 'var(--primary)' }}>Robux</span> Oficiales <br />
-            <span style={{ color: '#C084FC' }}>Acreditación Directa e Instantánea</span>
+            <span style={{ color: '#9BB8CD' }}>Acreditación Directa e Instantánea</span>
           </h1>
 
           <p style={{

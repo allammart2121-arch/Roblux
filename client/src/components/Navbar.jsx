@@ -33,30 +33,29 @@ export default function Navbar({ activeCategory, onSelectCategory, onNavigate, c
     }}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         
-        {/* Brand Logo - ROBLUX */}
+        {/* Brand Logo - ROBUX SHOP */}
         <div 
           onClick={() => onNavigate('catalog')}
           style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer' }}
         >
-          <div style={{
-            width: '42px',
-            height: '42px',
-            borderRadius: '12px',
-            background: 'var(--primary-gradient)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#000',
-            boxShadow: 'var(--shadow-glow)'
-          }}>
-            <Gamepad2 size={24} strokeWidth={2.5} />
-          </div>
+          <img 
+            src="/logo.png" 
+            alt="ROBUX SHOP" 
+            style={{
+              width: '44px',
+              height: '44px',
+              borderRadius: '50%',
+              objectFit: 'contain',
+              boxShadow: '0 0 15px rgba(56, 189, 248, 0.35)',
+              border: '2px solid rgba(80, 118, 141, 0.4)'
+            }}
+          />
           <div>
-            <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFF', display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
-              ROB<span style={{ color: 'var(--primary)' }}>LUX</span>
+            <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#FFF', display: 'flex', alignItems: 'center', gap: '0.2rem', letterSpacing: '0.02em' }}>
+              ROBUX <span style={{ color: 'var(--primary)' }}>SHOP</span>
             </div>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              Tienda Oficial de Roblox
+              Tienda Oficial de Robux
             </div>
           </div>
         </div>

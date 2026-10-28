@@ -62,9 +62,9 @@ export default function RobuxCalculator({ usdtRate = 792 }) {
         margin: '0 auto 2.5rem auto',
         padding: '2rem',
         borderRadius: '24px',
-        background: 'linear-gradient(145deg, rgba(19, 23, 41, 0.95) 0%, rgba(11, 14, 27, 0.95) 100%)',
-        border: '1px solid rgba(192, 132, 252, 0.25)',
-        boxShadow: '0 8px 32px rgba(138, 43, 226, 0.18)',
+        background: 'linear-gradient(145deg, rgba(16, 28, 42, 0.95) 0%, rgba(10, 18, 26, 0.95) 100%)',
+        border: '1px solid rgba(80, 118, 141, 0.3)',
+        boxShadow: '0 8px 32px rgba(10, 18, 26, 0.5)',
         position: 'relative',
         overflow: 'hidden'
       }}
@@ -77,7 +77,7 @@ export default function RobuxCalculator({ usdtRate = 792 }) {
           right: '-40px',
           width: '180px',
           height: '180px',
-          background: 'radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%)',
           pointerEvents: 'none'
         }}
       />
@@ -94,8 +94,8 @@ export default function RobuxCalculator({ usdtRate = 792 }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#FFF',
-              boxShadow: '0 4px 15px rgba(138, 43, 226, 0.4)'
+              color: '#04101A',
+              boxShadow: '0 4px 15px rgba(56, 189, 248, 0.35)'
             }}
           >
             <Calculator size={24} />
@@ -266,7 +266,7 @@ export default function RobuxCalculator({ usdtRate = 792 }) {
               borderRadius: '30px',
               fontWeight: 800,
               fontSize: '0.95rem',
-              boxShadow: '0 4px 18px rgba(138, 43, 226, 0.45)',
+              boxShadow: '0 4px 18px rgba(56, 189, 248, 0.35)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

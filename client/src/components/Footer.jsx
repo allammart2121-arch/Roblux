@@ -17,23 +17,23 @@ export default function Footer() {
           gap: '2rem',
           marginBottom: '2.5rem'
         }}>
-          {/* Brand Col - ROBLUX */}
+          {/* Brand Col - ROBUX SHOP */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem' }}>
-              <div style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '10px',
-                background: 'var(--primary-gradient)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#000'
-              }}>
-                <Gamepad2 size={20} strokeWidth={2.5} />
-              </div>
-              <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#FFF' }}>
-                ROB<span style={{ color: 'var(--primary)' }}>LUX</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.75rem' }}>
+              <img 
+                src="/logo.png" 
+                alt="ROBUX SHOP" 
+                style={{
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '50%',
+                  objectFit: 'contain',
+                  boxShadow: '0 0 12px rgba(56, 189, 248, 0.35)',
+                  border: '1px solid rgba(80, 118, 141, 0.4)'
+                }}
+              />
+              <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#FFF' }}>
+                ROBUX <span style={{ color: 'var(--primary)' }}>SHOP</span>
               </span>
             </div>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
@@ -61,7 +61,7 @@ export default function Footer() {
 
           {/* Guarantee 3 */}
           <div style={{ display: 'flex', gap: '0.75rem' }}>
-            <Headphones color="#C084FC" size={24} style={{ flexShrink: 0 }} />
+            <Headphones color="var(--primary)" size={24} style={{ flexShrink: 0 }} />
             <div>
               <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#FFF', marginBottom: '0.2rem' }}>Atención por WhatsApp</h4>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Atención directa al cliente para concretar tu recarga.</p>
@@ -81,7 +81,7 @@ export default function Footer() {
           color: 'var(--text-dim)'
         }}>
           <div>
-            ROBLUX © 2026 - Todos los derechos reservados.
+            ROBUX SHOP © 2026 - Todos los derechos reservados.
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>

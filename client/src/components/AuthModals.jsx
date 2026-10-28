@@ -66,22 +66,23 @@ export default function AuthModals() {
         {authModal === 'login' ? (
           <div>
             <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
-              <div style={{
-                width: '54px',
-                height: '54px',
-                borderRadius: '16px',
-                background: 'var(--primary-gradient)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#000',
-                margin: '0 auto 0.75rem auto'
-              }}>
-                <Lock size={26} strokeWidth={2.5} />
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="ROBUX SHOP" 
+                style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '50%',
+                  objectFit: 'contain',
+                  boxShadow: '0 0 20px rgba(56, 189, 248, 0.4)',
+                  border: '2px solid rgba(80, 118, 141, 0.4)',
+                  margin: '0 auto 0.75rem auto',
+                  display: 'block'
+                }}
+              />
               <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#FFF' }}>Iniciar Sesión</h2>
               <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                Accede a tu billetera virtual e historial de compras.
+                Accede a tu billetera virtual e historial de compras en ROBUX SHOP.
               </p>
             </div>
 
@@ -138,19 +139,20 @@ export default function AuthModals() {
         ) : (
           <div>
             <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
-              <div style={{
-                width: '54px',
-                height: '54px',
-                borderRadius: '16px',
-                background: 'var(--secondary-gradient)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#FFF',
-                margin: '0 auto 0.75rem auto'
-              }}>
-                <Gamepad2 size={28} />
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="ROBUX SHOP" 
+                style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '50%',
+                  objectFit: 'contain',
+                  boxShadow: '0 0 20px rgba(56, 189, 248, 0.4)',
+                  border: '2px solid rgba(80, 118, 141, 0.4)',
+                  margin: '0 auto 0.75rem auto',
+                  display: 'block'
+                }}
+              />
               <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#FFF' }}>Crear Cuenta</h2>
               <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
                 Únete a la plataforma de recargas Roblox más segura.
