@@ -10,19 +10,30 @@ const generateToken = (userId) => {
 
 exports.register = async (req, res, next) => {
   try {
-    const { username, email, password, robloxUsername } = req.body;
+    const { username, whatsapp, phone, email, password, robloxUsername } = req.body;
+    const userWhatsApp = (whatsapp || phone || '').trim();
+    const userEmail = (email || '').trim().toLowerCase();
 
-    if (!username || !email || !password) {
-      return res.status(400).json({ success: false, error: 'Por favor ingresa nombre de usuario, correo y contraseña.' });
+    if (!username || (!userWhatsApp && !userEmail) || !password) {
+      return res.status(400).json({ success: false, error: 'Por favor ingresa nombre de usuario, número de WhatsApp y contraseña.' });
     }
 
     if (password.length < 6) {
       return res.status(400).json({ success: false, error: 'La contraseña debe tener al menos 6 caracteres.' });
     }
 
-    const existingEmail = db.findUserByEmail(email);
-    if (existingEmail) {
-      return res.status(400).json({ success: false, error: 'El correo electrónico ya está registrado.' });
+    if (userWhatsApp) {
+      const existingWhatsApp = db.findUserByWhatsApp(userWhatsApp);
+      if (existingWhatsApp) {
+        return res.status(400).json({ success: false, error: 'El número de WhatsApp ya está registrado.' });
+      }
+    }
+
+    if (userEmail) {
+      const existingEmail = db.findUserByEmail(userEmail);
+      if (existingEmail) {
+        return res.status(400).json({ success: false, error: 'El correo electrónico ya está registrado.' });
+      }
     }
 
     const existingUsername = db.findUserByUsername(username);
@@ -36,10 +47,12 @@ exports.register = async (req, res, next) => {
     const newUser = {
       id: uuidv4(),
       username: username.trim(),
-      email: email.trim().toLowerCase(),
+      whatsapp: userWhatsApp,
+      email: userEmail,
       robloxUsername: robloxUsername ? robloxUsername.trim() : username.trim(),
       passwordHash,
       walletBalance: 0.00,
+      role: 'user',
       createdAt: new Date().toISOString()
     };
 
@@ -61,20 +74,21 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, identifier, whatsapp, login, password } = req.body;
+    const loginIdentifier = (identifier || whatsapp || email || login || '').trim();
 
-    if (!email || !password) {
-      return res.status(400).json({ success: false, error: 'Proporciona tu correo y contraseña.' });
+    if (!loginIdentifier || !password) {
+      return res.status(400).json({ success: false, error: 'Proporciona tus credenciales (WhatsApp, correo o usuario) y contraseña.' });
     }
 
-    const user = db.findUserByEmail(email);
+    const user = db.findUserByIdentifier(loginIdentifier);
     if (!user) {
-      return res.status(401).json({ success: false, error: 'Credenciales inválidas. Verifica tu correo y contraseña.' });
+      return res.status(401).json({ success: false, error: 'Credenciales inválidas. Verifica tus datos y contraseña.' });
     }
 
     const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) {
-      return res.status(401).json({ success: false, error: 'Credenciales inválidas. Verifica tu correo y contraseña.' });
+      return res.status(401).json({ success: false, error: 'Credenciales inválidas. Verifica tus datos y contraseña.' });
     }
 
     const token = generateToken(user.id);

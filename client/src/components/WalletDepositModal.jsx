@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { X, Wallet, Smartphone, CheckCircle2, ArrowRight, Clock, MessageSquare } from 'lucide-react';
+import { X, Wallet, Smartphone, CheckCircle2, ArrowRight, Clock, MessageSquare, Copy, Check } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { apiService } from '../services/api';
 
 export default function WalletDepositModal({ onStartPaymentProcess }) {
   const { walletModalOpen, setWalletModalOpen, user, showToast } = useAuth();
   
-  const [selectedAmount, setSelectedAmount] = useState(25);
-  const [customAmount, setCustomAmount] = useState('');
+  const [amountBs, setAmountBs] = useState('');
 
   // Dynamic Site Settings from Admin
   const [settings, setSettings] = useState({
@@ -21,10 +20,52 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
   const [pagoMovilRef, setPagoMovilRef] = useState('');
   const [submittedTx, setSubmittedTx] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [copiedField, setCopiedField] = useState(null);
+
+  const copyToClipboard = (text, fieldName = 'Datos') => {
+    const handleSuccess = () => {
+      setCopiedField(fieldName);
+      showToast(fieldName === 'all' ? '¡Datos de pago copiados al portapapeles!' : `¡${fieldName} copiado!`);
+      setTimeout(() => setCopiedField(null), 2500);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text)
+        .then(handleSuccess)
+        .catch(() => fallbackCopy(text, handleSuccess));
+    } else {
+      fallbackCopy(text, handleSuccess);
+    }
+  };
+
+  const fallbackCopy = (text, onSuccess) => {
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      textArea.remove();
+      onSuccess();
+    } catch (err) {
+      showToast('No se pudo copiar automáticamente.', 'error');
+    }
+  };
+
+  const copyAllPaymentData = () => {
+    const textToCopy = `DATOS PAGO MÓVIL:\nBanco: ${settings.pagoMovilBank}\nTeléfono: ${settings.pagoMovilPhone}\nRIF / Cédula: ${settings.pagoMovilId}\nMonto a Transferir: Bs. ${amountInLocalCurrency}`;
+    copyToClipboard(textToCopy, 'all');
+  };
 
   useEffect(() => {
     if (walletModalOpen) {
       setSubmittedTx(null);
+      setPagoMovilRef('');
+      setAmountBs('');
       apiService.getSettings()
         .then(res => {
           if (res.success && res.settings) {
@@ -37,14 +78,15 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
 
   if (!walletModalOpen) return null;
 
-  const finalAmountUsd = customAmount ? parseFloat(customAmount) : selectedAmount;
   const usdtRate = parseFloat(settings.usdtRate) || 42.50;
-  const amountInLocalCurrency = (finalAmountUsd * usdtRate).toFixed(2);
+  const parsedBs = parseFloat(amountBs) || 0;
+  const finalAmountUsd = parsedBs > 0 ? (parsedBs / usdtRate) : 0;
+  const amountInLocalCurrency = parsedBs > 0 ? parsedBs.toFixed(2) : '0.00';
 
   const handleSubmitDeposit = async (e) => {
     e.preventDefault();
-    if (!finalAmountUsd || finalAmountUsd <= 0) {
-      showToast('Por favor ingresa un monto válido para recargar.', 'error');
+    if (!parsedBs || parsedBs <= 0) {
+      showToast('Por favor escribe un monto válido a recargar.', 'error');
       return;
     }
 
@@ -197,26 +239,38 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
         ) : (
           /* DEPOSIT FORM - PAGO MOVIL ONLY */
           <form onSubmit={handleSubmitDeposit}>
-            {/* Preset Amount Selectors in Bs */}
+            {/* Input para Escribir Monto a Recargar */}
             <div style={{ marginBottom: '1.25rem' }}>
-              <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                Selecciona el Paquete a Recargar:
+              <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.45rem' }}>
+                Monto a Recargar:
               </label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                {[5, 10, 25, 50].map(amt => (
-                  <button
-                    key={amt}
-                    type="button"
-                    onClick={() => {
-                      setSelectedAmount(amt);
-                      setCustomAmount('');
-                    }}
-                    className={`btn btn-sm ${selectedAmount === amt && !customAmount ? 'btn-primary' : 'btn-outline'}`}
-                    style={{ fontWeight: 800, flexDirection: 'column', padding: '0.4rem 0.2rem' }}
-                  >
-                    <span>Bs. {(amt * usdtRate).toFixed(0)}</span>
-                  </button>
-                ))}
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                <span style={{
+                  position: 'absolute',
+                  left: '1rem',
+                  fontWeight: 800,
+                  color: 'var(--accent-gold)',
+                  fontSize: '0.95rem',
+                  pointerEvents: 'none'
+                }}>
+                  Bs.
+                </span>
+                <input
+                  type="number"
+                  step="any"
+                  min="1"
+                  className="input-field"
+                  style={{
+                    paddingLeft: '2.8rem',
+                    fontSize: '1.05rem',
+                    fontWeight: 700,
+                    color: '#FFF'
+                  }}
+                  placeholder="Escribe el monto a recargar (Ej: 19800)"
+                  value={amountBs}
+                  onChange={(e) => setAmountBs(e.target.value)}
+                  required
+                />
               </div>
             </div>
 
@@ -228,17 +282,92 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
               padding: '1rem',
               marginBottom: '1.25rem'
             }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.8rem' }}>
-                <div style={{ color: 'var(--primary)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', fontSize: '0.82rem' }}>
+                <div style={{ color: 'var(--primary)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.1rem' }}>
                   <Smartphone size={18} /> Datos Oficiales para Pago Móvil:
                 </div>
-                <div style={{ color: 'var(--text-muted)' }}>• Banco: <strong style={{ color: '#FFF' }}>{settings.pagoMovilBank}</strong></div>
-                <div style={{ color: 'var(--text-muted)' }}>• Teléfono: <strong style={{ color: '#FFF' }}>{settings.pagoMovilPhone}</strong></div>
-                <div style={{ color: 'var(--text-muted)' }}>• RIF / Cédula: <strong style={{ color: '#FFF' }}>{settings.pagoMovilId}</strong></div>
-                <div style={{ color: 'var(--accent-gold)', fontWeight: 800, marginTop: '0.2rem', fontSize: '1rem' }}>
-                  Monto a Transferir: <span style={{ fontSize: '1.1rem', color: '#FFF' }}>Bs. {amountInLocalCurrency}</span>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)' }}>
+                  <span>• Banco: <strong style={{ color: '#FFF' }}>{settings.pagoMovilBank}</strong></span>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(settings.pagoMovilBank, 'Banco')}
+                    className="btn btn-outline btn-sm"
+                    style={{ padding: '0.15rem 0.4rem', height: '22px', fontSize: '0.7rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
+                    title="Copiar Banco"
+                  >
+                    {copiedField === 'Banco' ? <Check size={12} color="var(--success)" /> : <Copy size={12} />}
+                  </button>
                 </div>
-                <div style={{ marginTop: '0.4rem' }}>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)' }}>
+                  <span>• Teléfono: <strong style={{ color: '#FFF' }}>{settings.pagoMovilPhone}</strong></span>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(settings.pagoMovilPhone.replace(/[^0-9]/g, '') || settings.pagoMovilPhone, 'Teléfono')}
+                    className="btn btn-outline btn-sm"
+                    style={{ padding: '0.15rem 0.4rem', height: '22px', fontSize: '0.7rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
+                    title="Copiar Teléfono"
+                  >
+                    {copiedField === 'Teléfono' ? <Check size={12} color="var(--success)" /> : <Copy size={12} />}
+                  </button>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)' }}>
+                  <span>• RIF / Cédula: <strong style={{ color: '#FFF' }}>{settings.pagoMovilId}</strong></span>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(settings.pagoMovilId.replace(/[^0-9A-Za-z]/g, '') || settings.pagoMovilId, 'RIF / Cédula')}
+                    className="btn btn-outline btn-sm"
+                    style={{ padding: '0.15rem 0.4rem', height: '22px', fontSize: '0.7rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
+                    title="Copiar RIF / Cédula"
+                  >
+                    {copiedField === 'RIF / Cédula' ? <Check size={12} color="var(--success)" /> : <Copy size={12} />}
+                  </button>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--accent-gold)', fontWeight: 800, marginTop: '0.1rem', fontSize: '1rem' }}>
+                  <span>Monto a Transferir: <span style={{ fontSize: '1.1rem', color: '#FFF' }}>Bs. {amountInLocalCurrency}</span></span>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(amountInLocalCurrency, 'Monto')}
+                    className="btn btn-outline btn-sm"
+                    style={{ padding: '0.15rem 0.4rem', height: '22px', fontSize: '0.7rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
+                    title="Copiar Monto"
+                  >
+                    {copiedField === 'Monto' ? <Check size={12} color="var(--success)" /> : <Copy size={12} />}
+                  </button>
+                </div>
+
+                {/* Botón principal: Copiar Datos de Pago */}
+                <button
+                  type="button"
+                  onClick={copyAllPaymentData}
+                  className="btn btn-sm"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.5rem',
+                    background: copiedField === 'all' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(0, 240, 255, 0.12)',
+                    border: copiedField === 'all' ? '1px solid var(--success)' : '1px solid var(--primary)',
+                    color: copiedField === 'all' ? 'var(--success)' : 'var(--primary)',
+                    fontWeight: 700,
+                    fontSize: '0.84rem',
+                    padding: '0.55rem 1rem',
+                    borderRadius: 'var(--radius-sm)',
+                    cursor: 'pointer',
+                    marginTop: '0.35rem',
+                    marginBottom: '0.25rem',
+                    width: '100%',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  {copiedField === 'all' ? <Check size={16} /> : <Copy size={16} />}
+                  {copiedField === 'all' ? '¡Datos de Pago Copiados!' : 'Copiar Datos de Pago'}
+                </button>
+
+                <div style={{ marginTop: '0.3rem' }}>
                   <label style={{ display: 'block', marginBottom: '0.2rem', color: 'var(--text-muted)' }}>
                     Número de Referencia del Pago:
                   </label>

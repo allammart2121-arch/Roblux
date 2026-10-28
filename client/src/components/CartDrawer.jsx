@@ -144,55 +144,170 @@ export default function CartDrawer({ onOrderCreated }) {
                   <div 
                     key={item.product.id}
                     style={{
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      border: '1px solid var(--border-color)',
-                      borderRadius: 'var(--radius-md)',
-                      padding: '0.85rem',
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%)',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      borderRadius: '16px',
+                      padding: '0.9rem',
                       display: 'flex',
                       gap: '0.85rem',
-                      alignItems: 'center'
+                      alignItems: 'center',
+                      boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
+                      position: 'relative'
                     }}
                   >
-                    <img
-                      src={item.product.imageUrl}
-                      alt={item.product.title}
-                      style={{ width: '60px', height: '60px', borderRadius: '8px', objectFit: 'cover' }}
-                    />
+                    {/* Left: Product Badge / Icon (replaces broken image) */}
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '14px',
+                      background: 'linear-gradient(135deg, rgba(138, 43, 226, 0.25) 0%, rgba(0, 242, 254, 0.2) 100%)',
+                      border: '1px solid rgba(0, 242, 254, 0.35)',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      overflow: 'hidden',
+                      position: 'relative'
+                    }}>
+                      {item.product.imageUrl && !item.product.imageUrl.includes('unsplash') ? (
+                        <img
+                          src={item.product.imageUrl}
+                          alt=""
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            if (e.currentTarget.nextElementSibling) {
+                              e.currentTarget.nextElementSibling.style.display = 'flex';
+                            }
+                          }}
+                        />
+                      ) : null}
+                      <div style={{
+                        display: (item.product.imageUrl && !item.product.imageUrl.includes('unsplash')) ? 'none' : 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        height: '100%'
+                      }}>
+                        <span style={{ fontSize: '1.05rem', fontWeight: 900, color: 'var(--primary)', letterSpacing: '-0.5px' }}>
+                          R$
+                        </span>
+                      </div>
+                    </div>
 
-                    <div style={{ flexGrow: 1 }}>
-                      <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#FFF', marginBottom: '0.2rem' }}>
+                    {/* Middle: Title & Price */}
+                    <div style={{ flexGrow: 1, minWidth: 0 }}>
+                      <div style={{
+                        fontSize: '0.9rem',
+                        fontWeight: 800,
+                        color: '#FFF',
+                        marginBottom: '0.2rem',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis'
+                      }}>
                         {item.product.title}
                       </div>
-                      <div style={{ fontSize: '0.95rem', color: 'var(--accent-gold)', fontWeight: 800 }}>
+                      <div style={{ fontSize: '0.98rem', color: 'var(--accent-gold)', fontWeight: 800 }}>
                         Bs. {itemTotalBs}
                       </div>
                     </div>
 
-                    {/* Quantity modifier */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(0,0,0,0.4)', borderRadius: '6px', padding: '0.2rem' }}>
+                    {/* Right: Quantity Stepper & Trash */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        background: 'rgba(15, 23, 42, 0.85)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        borderRadius: '12px',
+                        padding: '3px',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'
+                      }}>
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                          style={{
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '8px',
+                            border: 'none',
+                            background: 'rgba(255, 255, 255, 0.06)',
+                            color: '#FFF',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            transition: 'all 0.15s ease'
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0, 242, 254, 0.2)'; e.currentTarget.style.color = 'var(--primary)'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'; e.currentTarget.style.color = '#FFF'; }}
+                          title="Restar 1"
+                        >
+                          <Minus size={13} strokeWidth={2.5} />
+                        </button>
+
+                        <span style={{
+                          fontSize: '0.88rem',
+                          fontWeight: 800,
+                          color: '#FFF',
+                          minWidth: '26px',
+                          textAlign: 'center',
+                          userSelect: 'none'
+                        }}>
+                          {item.quantity}
+                        </span>
+
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                          style={{
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '8px',
+                            border: 'none',
+                            background: 'rgba(255, 255, 255, 0.06)',
+                            color: '#FFF',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            transition: 'all 0.15s ease'
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0, 242, 254, 0.2)'; e.currentTarget.style.color = 'var(--primary)'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'; e.currentTarget.style.color = '#FFF'; }}
+                          title="Sumar 1"
+                        >
+                          <Plus size={13} strokeWidth={2.5} />
+                        </button>
+                      </div>
+
                       <button
-                        onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                        style={{ background: 'none', color: '#FFF', padding: '2px' }}
+                        type="button"
+                        onClick={() => removeFromCart(item.product.id)}
+                        style={{
+                          width: '34px',
+                          height: '34px',
+                          borderRadius: '10px',
+                          border: '1px solid rgba(239, 68, 68, 0.3)',
+                          background: 'rgba(239, 68, 68, 0.12)',
+                          color: '#FF6B6B',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          flexShrink: 0
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.25)'; e.currentTarget.style.borderColor = 'var(--danger)'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.12)'; e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.3)'; }}
+                        title="Eliminar producto"
                       >
-                        <Minus size={14} />
-                      </button>
-                      <span style={{ fontSize: '0.85rem', fontWeight: 700, minWidth: '18px', textAlign: 'center' }}>
-                        {item.quantity}
-                      </span>
-                      <button
-                        onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                        style={{ background: 'none', color: '#FFF', padding: '2px' }}
-                      >
-                        <Plus size={14} />
+                        <Trash2 size={16} />
                       </button>
                     </div>
-
-                    <button
-                      onClick={() => removeFromCart(item.product.id)}
-                      style={{ background: 'none', color: 'var(--danger)', opacity: 0.7, padding: '4px' }}
-                    >
-                      <Trash2 size={16} />
-                    </button>
                   </div>
                 );
               })}

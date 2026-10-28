@@ -101,7 +101,9 @@ export default function ProfilePage() {
               <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#FFF' }}>{user.username}</h2>
               <span className="badge badge-cyan">Cuenta Verificada</span>
             </div>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>{user.email}</p>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <MessageSquare size={13} color="var(--primary)" /> {user.whatsapp ? `WhatsApp: ${user.whatsapp}` : user.email}
+            </p>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-dim)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
               <Gamepad2 size={14} color="var(--primary)" /> Roblox User: <strong style={{ color: '#FFF' }}>{user.robloxUsername || user.username}</strong>
             </p>

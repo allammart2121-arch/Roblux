@@ -431,7 +431,7 @@ export default function AdminDashboardPage() {
                         <div>
                           <span className="badge badge-gold" style={{ fontSize: '0.75rem' }}>PENDIENTE DE REVISIÓN</span>
                           <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#FFF', marginTop: '0.3rem' }}>
-                            {targetUser ? targetUser.username : 'Usuario'} ({targetUser?.email || 'N/A'})
+                            {targetUser ? targetUser.username : 'Usuario'} ({targetUser?.whatsapp || targetUser?.email || 'N/A'})
                           </h4>
                         </div>
                         <div style={{ textAlign: 'right' }}>
@@ -904,7 +904,7 @@ export default function AdminDashboardPage() {
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--border-color)', color: 'var(--text-muted)' }}>
                   <th style={{ padding: '0.85rem' }}>Usuario</th>
-                  <th style={{ padding: '0.85rem' }}>Correo Electrónico</th>
+                  <th style={{ padding: '0.85rem' }}>WhatsApp / Correo</th>
                   <th style={{ padding: '0.85rem' }}>User Roblox</th>
                   <th style={{ padding: '0.85rem' }}>Saldo Billetera</th>
                   <th style={{ padding: '0.85rem' }}>Rol</th>
@@ -915,7 +915,7 @@ export default function AdminDashboardPage() {
                 {usersList.map(u => (
                   <tr key={u.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                     <td style={{ padding: '0.85rem', fontWeight: 700, color: '#FFF' }}>{u.username}</td>
-                    <td style={{ padding: '0.85rem', color: 'var(--text-muted)' }}>{u.email}</td>
+                    <td style={{ padding: '0.85rem', color: 'var(--text-muted)' }}>{u.whatsapp || u.email || 'N/A'}</td>
                     <td style={{ padding: '0.85rem', color: 'var(--primary)' }}>{u.robloxUsername || u.username}</td>
                     <td style={{ padding: '0.85rem', fontWeight: 800, color: 'var(--success)' }}>
                       ${parseFloat(u.walletBalance || 0).toFixed(2)}

@@ -38,7 +38,7 @@ export default function RobuxCalculator({ usdtRate = 792 }) {
       stock: 99999,
       badge: `${currentRobux} R$`,
       rating: 5.0,
-      imageUrl: 'https://images.unsplash.com/photo-1614680376593-902f749f7cfc?auto=format&fit=crop&w=600&q=80',
+      imageUrl: '',
       description: `Acreditación de ${currentRobux.toLocaleString()} Robux a tu cuenta de Roblox.`,
       deliveryTime: 'Instantánea (1-5 min)'
     };
@@ -108,24 +108,6 @@ export default function RobuxCalculator({ usdtRate = 792 }) {
               Ingresa la cantidad que quieras o escoge un botón rápido
             </p>
           </div>
-        </div>
-
-        {/* Live USDT rate pill */}
-        <div
-          style={{
-            background: 'rgba(255, 215, 0, 0.1)',
-            border: '1px solid rgba(255, 215, 0, 0.3)',
-            borderRadius: '20px',
-            padding: '0.35rem 0.85rem',
-            fontSize: '0.78rem',
-            color: 'var(--accent-gold)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4rem'
-          }}
-        >
-          <Zap size={14} />
-          <span>Tasa USDT: <strong>{rateNum.toFixed(2)} Bs/$</strong></span>
         </div>
       </div>
 
@@ -271,10 +253,8 @@ export default function RobuxCalculator({ usdtRate = 792 }) {
             Bs. {priceBs}
           </div>
 
-          <div style={{ fontSize: '0.85rem', color: '#FFF', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-            <span>Equivalente: <strong>${priceUsd.toFixed(2)} USD</strong></span>
-            <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Entrega en 1-5 min</span>
+          <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span>Entrega en 1-5 min</span>
           </div>
 
           <button

@@ -78,7 +78,47 @@ class LocalDB {
   }
 
   findUserByEmail(email) {
-    return this.data.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    if (!email) return null;
+    return this.data.users.find(u => u.email && u.email.toLowerCase() === email.toLowerCase());
+  }
+
+  findUserByWhatsApp(whatsapp) {
+    if (!whatsapp) return null;
+    const cleanSearch = String(whatsapp).replace(/\D/g, '');
+    const searchCore = cleanSearch.replace(/^0+/, '');
+    return this.data.users.find(u => {
+      if (!u.whatsapp) return false;
+      const cleanUser = String(u.whatsapp).replace(/\D/g, '');
+      const userCore = cleanUser.replace(/^0+/, '');
+
+      if (cleanUser && cleanSearch && cleanUser === cleanSearch) return true;
+      if (userCore && searchCore && userCore === searchCore) return true;
+
+      if (userCore.length >= 7 && searchCore.length >= 7) {
+        if (userCore.endsWith(searchCore) || searchCore.endsWith(userCore)) {
+          return true;
+        }
+      }
+      return u.whatsapp.trim().toLowerCase() === String(whatsapp).trim().toLowerCase();
+    });
+  }
+
+  findUserByIdentifier(identifier) {
+    if (!identifier) return null;
+    const trimmed = String(identifier).trim();
+    // 1. Check whatsapp
+    const byWhatsApp = this.findUserByWhatsApp(trimmed);
+    if (byWhatsApp) return byWhatsApp;
+
+    // 2. Check email
+    const byEmail = this.findUserByEmail(trimmed);
+    if (byEmail) return byEmail;
+
+    // 3. Check username
+    const byUsername = this.findUserByUsername(trimmed);
+    if (byUsername) return byUsername;
+
+    return null;
   }
 
   findUserById(id) {

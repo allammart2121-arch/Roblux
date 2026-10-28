@@ -9,7 +9,7 @@ export default function AuthModals() {
   const [loginPassword, setLoginPassword] = useState('');
 
   const [regUsername, setRegUsername] = useState('');
-  const [regEmail, setRegEmail] = useState('');
+  const [regWhatsapp, setRegWhatsapp] = useState('');
   const [regRobloxUsername, setRegRobloxUsername] = useState('');
   const [regPassword, setRegPassword] = useState('');
 
@@ -21,7 +21,7 @@ export default function AuthModals() {
     e.preventDefault();
     setLoading(true);
     try {
-      await login({ email: loginEmail, password: loginPassword });
+      await login({ identifier: loginEmail, email: loginEmail, password: loginPassword });
     } catch (err) {
       showToast(err.message || 'Error al iniciar sesión.', 'error');
     } finally {
@@ -35,7 +35,7 @@ export default function AuthModals() {
     try {
       await register({
         username: regUsername,
-        email: regEmail,
+        whatsapp: regWhatsapp,
         robloxUsername: regRobloxUsername,
         password: regPassword
       });
@@ -88,12 +88,12 @@ export default function AuthModals() {
             <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
-                  Correo Electrónico:
+                  WhatsApp, Correo o Usuario:
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   className="input-field"
-                  placeholder="tu@email.com"
+                  placeholder="Ej: +58 412 1234567 o usuario"
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
                   required
@@ -174,14 +174,14 @@ export default function AuthModals() {
 
               <div>
                 <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>
-                  Correo Electrónico:
+                  Número de WhatsApp:
                 </label>
                 <input
-                  type="email"
+                  type="tel"
                   className="input-field"
-                  placeholder="tu@email.com"
-                  value={regEmail}
-                  onChange={(e) => setRegEmail(e.target.value)}
+                  placeholder="Ej: +58 412 1234567"
+                  value={regWhatsapp}
+                  onChange={(e) => setRegWhatsapp(e.target.value)}
                   required
                 />
               </div>
