@@ -33,6 +33,10 @@ export default function AdminDashboardPage() {
   });
   const [savingSettings, setSavingSettings] = useState(false);
 
+  // Quick rate editor state (for summary tab widget)
+  const [quickRate, setQuickRate] = useState('');
+  const [savingRate, setSavingRate] = useState(false);
+
   // Product Form Modal state
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -57,7 +61,10 @@ export default function AdminDashboardPage() {
       if (statsRes.success) setStats(statsRes.stats);
 
       const settingsRes = await apiService.getAdminSettings();
-      if (settingsRes.success) setSiteSettings(prev => ({ ...prev, ...settingsRes.settings }));
+      if (settingsRes.success) {
+        setSiteSettings(prev => ({ ...prev, ...settingsRes.settings }));
+        setQuickRate(String(settingsRes.settings.usdtRate || '42.50'));
+      }
 
       const prodRes = await apiService.getProducts();
       if (prodRes.success) setProducts(prodRes.products);
@@ -74,6 +81,28 @@ export default function AdminDashboardPage() {
       console.error('Error fetching admin data:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Quick Rate Save (from summary widget)
+  const handleQuickSaveRate = async () => {
+    const rateVal = parseFloat(quickRate);
+    if (isNaN(rateVal) || rateVal <= 0) {
+      showToast('Ingresa una tasa válida mayor a 0.', 'error');
+      return;
+    }
+    setSavingRate(true);
+    try {
+      const res = await apiService.updateAdminSettings({ ...siteSettings, usdtRate: rateVal });
+      if (res.success) {
+        showToast(`✅ Tasa actualizada a ${rateVal} Bs/$ correctamente.`);
+        setSiteSettings(res.settings);
+        setQuickRate(String(rateVal));
+      }
+    } catch (err) {
+      showToast(err.message || 'Error al actualizar la tasa.', 'error');
+    } finally {
+      setSavingRate(false);
     }
   };
 
@@ -339,9 +368,50 @@ export default function AdminDashboardPage() {
               <div style={{ fontSize: '2rem', fontWeight: 800, color: '#FFF' }}>{stats.totalOrdersCount}</div>
             </div>
 
-            <div className="glass-card" style={{ padding: '1.5rem' }}>
-              <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>Tasa del Día Configurada</div>
-              <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--accent-gold)' }}>{siteSettings.usdtRate} <span style={{ fontSize: '0.9rem' }}>Bs/$</span></div>
+            <div className="glass-card" style={{
+              padding: '1.5rem',
+              border: '1px solid rgba(251, 191, 36, 0.35)',
+              boxShadow: '0 0 18px rgba(251, 191, 36, 0.12)',
+              gridColumn: 'span 1'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
+                <DollarSign size={15} color="var(--accent-gold)" />
+                <div style={{ fontSize: '0.78rem', color: 'var(--accent-gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Tasa del Día (Bs/$)
+                </div>
+              </div>
+              <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--accent-gold)', marginBottom: '0.75rem' }}>
+                {siteSettings.usdtRate} <span style={{ fontSize: '0.85rem' }}>Bs/$</span>
+              </div>
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                <input
+                  type="number"
+                  step="0.01"
+                  min="1"
+                  className="input-field"
+                  style={{ flex: 1, padding: '0.45rem 0.65rem', fontSize: '0.95rem', fontWeight: 700 }}
+                  placeholder="Ej: 42.50"
+                  value={quickRate}
+                  onChange={(e) => setQuickRate(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') handleQuickSaveRate(); }}
+                />
+                <button
+                  onClick={handleQuickSaveRate}
+                  disabled={savingRate}
+                  className="btn btn-primary btn-sm"
+                  style={{
+                    background: 'linear-gradient(135deg, #FBBF24 0%, #D97706 100%)',
+                    color: '#000',
+                    fontWeight: 800,
+                    borderRadius: '8px',
+                    whiteSpace: 'nowrap',
+                    padding: '0.45rem 0.85rem'
+                  }}
+                >
+                  <Save size={14} />
+                  {savingRate ? '...' : 'Guardar'}
+                </button>
+              </div>
             </div>
           </div>
 
