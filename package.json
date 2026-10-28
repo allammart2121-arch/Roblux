@@ -1,5 +1,5 @@
 {
-  "name": "robux-shop",
+  "name": "robuxshop",
   "version": "1.0.0",
   "description": "Plataforma e-Commerce ROBUX SHOP para recargas de Robux en Roblox",
   "main": "server/index.js",
