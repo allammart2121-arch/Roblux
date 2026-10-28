@@ -37,7 +37,7 @@ export default function Footer() {
               </span>
             </div>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-              La plataforma oficial más rápida y segura para la recarga directa de Robux en Roblox con pagos en Bolívares.
+              La plataforma oficial más rápida y segura para la compra de Robux en Roblox con pagos en Bolívares.
             </p>
           </div>
 

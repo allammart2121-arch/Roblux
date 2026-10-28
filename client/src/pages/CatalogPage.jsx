@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Zap, Gamepad2 } from 'lucide-react';
 import { apiService } from '../services/api';
 import ProductCard from '../components/ProductCard';
+import RobuxCalculator from '../components/RobuxCalculator';
 
 export default function CatalogPage({ activeCategory, onSelectCategory }) {
   const [products, setProducts] = useState([]);
@@ -115,34 +116,31 @@ export default function CatalogPage({ activeCategory, onSelectCategory }) {
         </div>
       </section>
 
-      {/* CATEGORY FILTER TABS & STORE GRID */}
+      {/* ROBUX INTERACTIVE CALCULATOR & STORE GRID */}
       <section className="container" style={{ marginTop: '2rem' }}>
         
-        {/* Category Buttons Header */}
+        {/* Dynamic Calculator */}
+        <RobuxCalculator usdtRate={usdtRate} />
+
+        {/* Section Header for Predefined Packages */}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '2rem',
+          marginBottom: '1.75rem',
           flexWrap: 'wrap',
-          gap: '1rem'
+          gap: '1rem',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          paddingBottom: '1rem'
         }}>
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            {['Robux', 'Recarga Directa', 'Bonus Pack', 'Ultra Pack'].map(cat => (
-              <button
-                key={cat}
-                onClick={() => onSelectCategory(cat)}
-                className={`btn ${activeCategory === cat ? 'btn-primary' : 'btn-outline'}`}
-                style={{ borderRadius: '20px', padding: '0.55rem 1.25rem' }}
-              >
-                {cat === 'Robux' && <Zap size={14} style={{ marginRight: '0.35rem' }} />}
-                {cat}
-              </button>
-            ))}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+            <span className="badge badge-purple" style={{ fontSize: '0.85rem', padding: '0.4rem 0.9rem' }}>
+              <Zap size={15} style={{ marginRight: '0.35rem' }} /> Paquetes Predefinidos de Robux
+            </span>
           </div>
 
           <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-            Mostrando <strong>{filteredProducts.length}</strong> paquetes de Robux disponibles
+            Mostrando <strong>{filteredProducts.length}</strong> paquetes disponibles
           </div>
         </div>
 

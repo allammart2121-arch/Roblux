@@ -20,7 +20,22 @@ exports.createOrder = async (req, res, next) => {
 
     // Verify inventory stock & compute total
     for (const item of items) {
-      const product = db.getProductById(item.productId);
+      let product = db.getProductById(item.productId);
+      if (!product && item.productId && item.productId.startsWith('robux-custom-')) {
+        const robuxAmt = parseInt(item.productId.replace('robux-custom-', ''), 10) || 50;
+        const customPrice = Number(((robuxAmt * 0.01) + 0.10).toFixed(2));
+        product = {
+          id: item.productId,
+          title: item.title || `${robuxAmt} Robux`,
+          category: 'Robux',
+          subcategory: 'Robux',
+          price: customPrice,
+          stock: 99999,
+          imageUrl: item.imageUrl || 'https://images.unsplash.com/photo-1614680376593-902f749f7cfc?auto=format&fit=crop&w=600&q=80',
+          deliveryTime: 'Instantánea (1-5 min)'
+        };
+      }
+
       if (!product) {
         return res.status(404).json({ 
           success: false, 
