@@ -39,49 +39,50 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    loadUser();
-  }, []);
-
-  const login = async (credentials) => {
-    const data = await apiService.login(credentials);
-    if (data.success) {
-      localStorage.setItem('roblox_token', data.token);
-      setUser(data.user);
-      setAuthModal(null);
-      showToast(data.message || '¡Bienvenido de nuevo!');
-      return data;
-    }
-  };
-
-  const register = async (userData) => {
-    const data = await apiService.register(userData);
-    if (data.success) {
-      localStorage.setItem('roblox_token', data.token);
-      setUser(data.user);
-      setAuthModal(null);
-      showToast(data.message || '¡Cuenta creada exitosamente!');
-      return data;
-    }
-  };
-
-  const logout = () => {
-    localStorage.removeItem('roblox_token');
-    setUser(null);
-    showToast('Has cerrado sesión correctamente.', 'success');
-  };
-
   const refreshBalance = async () => {
-    if (!user) return;
+    const token = localStorage.getItem('roblox_token');
+    if (!token) return;
     try {
       const data = await apiService.getWalletBalance();
-      if (data.success) {
-        setUser(prev => prev ? { ...prev, walletBalance: data.walletBalance } : null);
+      if (data.success && typeof data.walletBalance === 'number') {
+        setUser(prev => {
+          if (!prev) return prev;
+          if (prev.walletBalance !== data.walletBalance) {
+            return { ...prev, walletBalance: data.walletBalance };
+          }
+          return prev;
+        });
       }
     } catch (err) {
       console.error('Error refreshing balance:', err);
     }
   };
+
+  useEffect(() => {
+    loadUser();
+
+    // Auto-refresh balance every 3 seconds so new deposits reflect instantly without page reload
+    const interval = setInterval(() => {
+      const token = localStorage.getItem('roblox_token');
+      if (token) {
+        refreshBalance();
+      }
+    }, 3000);
+
+    // Refresh immediately when returning to the tab
+    const handleFocus = () => {
+      const token = localStorage.getItem('roblox_token');
+      if (token) {
+        refreshBalance();
+      }
+    };
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, []);
 
   return (
     <AuthContext.Provider value={{

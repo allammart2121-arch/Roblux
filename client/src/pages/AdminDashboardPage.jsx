@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
 import ProductFormModal from '../components/ProductFormModal';
 
 export default function AdminDashboardPage() {
-  const { user, showToast } = useAuth();
+  const { user, showToast, refreshBalance } = useAuth();
   
   const [activeTab, setActiveTab] = useState('summary'); // 'summary' | 'products' | 'orders' | 'deposits' | 'users' | 'settings'
   const [stats, setStats] = useState(null);
@@ -169,6 +169,7 @@ export default function AdminDashboardPage() {
       if (res.success) {
         showToast(res.message);
         fetchAdminData();
+        refreshBalance();
       }
     } catch (err) {
       showToast(err.message, 'error');
@@ -190,6 +191,7 @@ export default function AdminDashboardPage() {
         setSelectedUser(null);
         setBalanceAmount('');
         fetchAdminData();
+        refreshBalance();
       }
     } catch (err) {
       showToast(err.message, 'error');

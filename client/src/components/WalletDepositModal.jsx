@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { apiService } from '../services/api';
 
 export default function WalletDepositModal({ onStartPaymentProcess }) {
-  const { walletModalOpen, setWalletModalOpen, user, showToast } = useAuth();
+  const { walletModalOpen, setWalletModalOpen, user, showToast, refreshBalance } = useAuth();
   
   const [amountBs, setAmountBs] = useState('');
 
@@ -81,7 +81,7 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
 
   if (!walletModalOpen) return null;
 
-  const usdtRate = parseFloat(settings.usdtRate) || 42.50;
+  const usdtRate = parseFloat(settings.usdtRate) || parseFloat(localStorage.getItem('cached_usdt_rate') || '792');
   const parsedBs = parseFloat(amountBs) || 0;
   const finalAmountUsd = parsedBs > 0 ? (parsedBs / usdtRate) : 0;
   const amountInLocalCurrency = parsedBs > 0 ? parsedBs.toFixed(2) : '0.00';
@@ -115,6 +115,7 @@ export default function WalletDepositModal({ onStartPaymentProcess }) {
       if (res.success) {
         setSubmittedTx(res.transaction);
         showToast('¡Solicitud de recarga enviada al Administrador!');
+        refreshBalance();
       }
     } catch (err) {
       showToast(err.message || 'Error al enviar la solicitud de recarga.', 'error');
